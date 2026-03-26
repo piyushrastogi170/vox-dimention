@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gratitude | VoxDimension</title>
+<!-- Google Fonts: Noto Serif for Architectural Headlines & Manrope for Utility -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;0,700;1,300&amp;family=Manrope:wght@200;300;400;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed": "#1a1c1c",
+              "on-surface": "#1a1c1c",
+              "on-secondary": "#ffffff",
+              "outline": "#7f7663",
+              "primary": "#735c00",
+              "surface-container-highest": "#e2e2e2",
+              "tertiary-fixed-dim": "#c6c6c7",
+              "surface-container-high": "#e8e8e8",
+              "tertiary": "#5d5f5f",
+              "on-surface-variant": "#4d4635",
+              "surface": "#f9f9f9",
+              "surface-container-low": "#f3f3f4",
+              "primary-container": "#d4af37",
+              "on-background": "#1a1c1c",
+              "error": "#ba1a1a",
+              "inverse-primary": "#e9c349",
+              "surface-tint": "#735c00",
+              "on-error-container": "#93000a",
+              "error-container": "#ffdad6",
+              "on-error": "#ffffff",
+              "on-primary": "#ffffff",
+              "background": "#f9f9f9",
+              "on-secondary-container": "#656464",
+              "secondary-fixed-dim": "#c8c6c5",
+              "on-primary-fixed-variant": "#574500",
+              "secondary-fixed": "#e5e2e1",
+              "tertiary-container": "#b2b3b3",
+              "inverse-surface": "#2f3131",
+              "surface-container": "#eeeeee",
+              "secondary-container": "#e5e2e1",
+              "on-tertiary": "#ffffff",
+              "on-primary-container": "#554300",
+              "primary-fixed-dim": "#e9c349",
+              "on-secondary-fixed-variant": "#474646",
+              "on-secondary-fixed": "#1c1b1b",
+              "surface-dim": "#dadada",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-fixed-variant": "#454747",
+              "inverse-on-surface": "#f0f1f1",
+              "primary-fixed": "#ffe088",
+              "outline-variant": "#d0c5af",
+              "surface-bright": "#f9f9f9",
+              "on-tertiary-container": "#444546",
+              "on-primary-fixed": "#241a00",
+              "secondary": "#5f5e5e",
+              "tertiary-fixed": "#e2e2e2",
+              "surface-variant": "#e2e2e2"
+            },
+            fontFamily: {
+              "headline": ["Noto Serif"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .reveal-scroll {
+            animation: fadeInUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .tonal-shift {
+            transition: background-color 0.5s ease;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar (Shared Component) -->
+{% include 'components/header.html' %}
+<!-- Main Content Canvas -->
+<main class="min-h-screen flex flex-col items-center justify-center px-6 relative overflow-hidden pt-24">
+<!-- Background Architectural Texture / Glow -->
+<div class="absolute inset-0 pointer-events-none">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-fixed-dim/5 rounded-full blur-[120px]"></div>
+<div class="absolute top-0 right-0 w-[400px] h-[600px] bg-primary-container/3 mix-blend-multiply blur-[100px]"></div>
+</div>
+<!-- Hero Branding -->
+<div class="reveal-scroll text-center max-w-4xl z-10">
+<div class="mb-12 inline-block">
+<div class="w-16 h-px bg-primary-container mb-8 mx-auto"></div>
+<span class="font-label text-[10px] uppercase tracking-[0.4em] text-primary mb-4 block">Submission Confirmed</span>
+</div>
+<h1 class="font-headline text-5xl md:text-7xl font-light tracking-tight text-on-surface mb-8 leading-tight">
+                Gratitude for <br/><span class="italic font-normal">Your Perspective.</span>
+</h1>
+<div class="flex flex-col md:flex-row items-start justify-center gap-12 mt-16 mb-20 text-left">
+<div class="w-px h-24 bg-outline-variant/30 hidden md:block"></div>
+<p class="font-body text-lg md:text-xl text-on-surface-variant max-w-xl leading-relaxed font-light">
+                    Your architectural insights have been received and will be curated to refine the future of our digital atelier. We treat every reflection as a foundational element in our shared dimension.
+                </p>
+</div>
+<!-- CTA Cluster -->
+<div class="flex flex-col sm:flex-row items-center justify-center gap-6 mt-4">
+<a class="group relative bg-primary text-on-primary px-12 py-5 text-[11px] uppercase tracking-[0.2em] font-bold transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(115,92,0,0.3)] w-full sm:w-auto text-center" href="/studio">
+                    Return to the Studio
+                    <div class="absolute inset-0 border border-primary-container opacity-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 pointer-events-none"></div>
+</a>
+<a class="group border border-outline-variant/50 px-12 py-5 text-[11px] uppercase tracking-[0.2em] font-medium text-on-surface hover:bg-surface-container-low transition-all duration-300 w-full sm:w-auto text-center" href="/">
+                    Back to Home
+                </a>
+</div>
+</div>
+</main>
+<!-- Footer (Shared Component) -->
+{% include 'components/footer.html' %}
+</body>
+</html>

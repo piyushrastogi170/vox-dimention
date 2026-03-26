@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link rel="shortcut icon" href="vox dimention.svg" type="image/x-icon">
+<title>404 - The Dimension You Seek Is Unseen | The Atelier</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,500&amp;family=Manrope:wght@300;400;600;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed-dim": "#c6c6c7",
+              "primary-fixed": "#ffe088",
+              "on-primary-container": "#554300",
+              "primary-fixed-dim": "#e9c349",
+              "on-secondary-container": "#656464",
+              "background": "#f9f9f9",
+              "on-tertiary": "#ffffff",
+              "tertiary-fixed": "#e2e2e2",
+              "surface": "#f9f9f9",
+              "inverse-primary": "#e9c349",
+              "secondary": "#5f5e5e",
+              "surface-dim": "#dadada",
+              "surface-container": "#eeeeee",
+              "on-background": "#1a1c1c",
+              "on-error": "#ffffff",
+              "tertiary": "#5d5f5f",
+              "primary": "#735c00",
+              "surface-container-low": "#f3f3f4",
+              "outline-variant": "#d0c5af",
+              "error-container": "#ffdad6",
+              "on-primary-fixed": "#241a00",
+              "error": "#ba1a1a",
+              "secondary-fixed-dim": "#c8c6c5",
+              "secondary-fixed": "#e5e2e1",
+              "on-tertiary-fixed-variant": "#454747",
+              "on-primary": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "outline": "#7f7663",
+              "surface-bright": "#f9f9f9",
+              "surface-container-high": "#e8e8e8",
+              "on-tertiary-container": "#444546",
+              "on-error-container": "#93000a",
+              "on-secondary-fixed-variant": "#474646",
+              "on-surface": "#1a1c1c",
+              "tertiary-container": "#b2b3b3",
+              "primary-container": "#d4af37",
+              "surface-variant": "#e2e2e2",
+              "surface-container-highest": "#e2e2e2",
+              "inverse-on-surface": "#f0f1f1",
+              "secondary-container": "#e5e2e1",
+              "on-secondary": "#ffffff",
+              "on-tertiary-fixed": "#1a1c1c",
+              "on-surface-variant": "#4d4635",
+              "on-secondary-fixed": "#1c1b1b",
+              "inverse-surface": "#2f3131",
+              "surface-tint": "#735c00",
+              "on-primary-fixed-variant": "#574500"
+            },
+            fontFamily: {
+              "headline": ["Noto Serif"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .reveal-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: reveal 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        @keyframes reveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .gold-shimmer {
+            background: linear-gradient(90deg, #735c00 0%, #d4af37 50%, #735c00 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s linear infinite;
+        }
+        @keyframes shimmer {
+            to { background-position: 200% center; }
+        }
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+{% include 'components/header.html' %}
+<main class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-24 px-6">
+<!-- Background Elements: Floating Architecture -->
+<div class="absolute inset-0 pointer-events-none z-0">
+<div class="absolute top-1/4 left-1/4 w-64 h-64 border border-outline-variant/20 floating" style="animation-delay: 0s;"></div>
+<div class="absolute bottom-1/4 right-1/4 w-96 h-96 border border-outline-variant/10 floating" style="animation-delay: -2s;"></div>
+<div class="absolute top-1/2 right-1/3 w-32 h-32 bg-surface-container-low/40 floating" style="animation-delay: -4s;"></div>
+<!-- Atmospheric Gradient -->
+<div class="absolute inset-0 opacity-20" style="background: radial-gradient(circle at 50% 50%, #d4af37 0%, transparent 70%);"></div>
+</div>
+<!-- Content Canvas -->
+<section class="relative z-10 text-center max-w-4xl mx-auto reveal-scroll">
+<!-- Large 404 Hero -->
+<div class="mb-8">
+<h1 class="font-headline text-[12rem] md:text-[20rem] leading-none font-bold tracking-tighter gold-shimmer select-none" style="filter: drop-shadow(0 0 10px rgba(115,92,0,0.1));">
+                    404
+                </h1>
+</div>
+<!-- Headlines -->
+<div class="space-y-6">
+<h2 class="font-headline text-4xl md:text-6xl text-on-surface tracking-tight leading-tight">
+                    The Dimension You Seek Is Unseen.
+                </h2>
+<p class="font-body text-lg md:text-xl text-secondary max-w-2xl mx-auto leading-relaxed font-light">
+                    The path you followed has vanished into the architecture of silence. <br class="hidden md:block"/>
+                    Let us guide you back to the source.
+                </p>
+</div>
+<!-- CTAs -->
+<div class="mt-16 flex flex-col md:flex-row items-center justify-center gap-10">
+<a class="group relative px-10 py-5 bg-primary text-on-primary font-label uppercase tracking-[0.2em] text-xs transition-all duration-700 hover:bg-on-surface hover:shadow-2xl active:scale-95" href="#">
+                    Return to the VoxDimention
+                    <div class="absolute inset-0 border border-primary group-hover:scale-105 transition-transform duration-700 pointer-events-none"></div>
+</a>
+<a class="group flex items-center space-x-3 font-label uppercase tracking-[0.2em] text-xs text-primary transition-all duration-500 hover:text-on-surface" href="https://www.josmithservices.in/">
+<span>Contact the Architect</span>
+<span class="material-symbols-outlined transition-transform duration-500 group-hover:translate-x-2" data-icon="arrow_right_alt">arrow_right_alt</span>
+</a>
+</div>
+</section>
+<!-- Decorative Vertical Line -->
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-px h-32 bg-gradient-to-t from-primary-container to-transparent opacity-40"></div>
+</main>
+<!-- Detailed Visual Image Mockups (Hidden / Background Strategy) -->
+<div class="hidden">
+<img data-alt="minimalist architectural rendering of a high-end art gallery with white marble floors and champagne gold accents under soft cinematic lighting"/>
+<img data-alt="abstract 3d geometric shapes in light grey and white floating in a void of soft light and mist premium aesthetic"/>
+</div>
+<!-- Footer -->
+{% include 'components/footer.html' %}
+</body>
+</html>

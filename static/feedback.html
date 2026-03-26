@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Feedback — VoxDimension</title>
+<link rel="shortcut icon" href="vox dimention.svg" type="image/x-icon">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@300;400;700&amp;family=Manrope:wght@200;300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-low": "#f3f3f4",
+              "primary": "#735c00",
+              "outline": "#7f7663",
+              "primary-fixed-dim": "#e9c349",
+              "tertiary-fixed-dim": "#c6c6c7",
+              "inverse-on-surface": "#f0f1f1",
+              "surface-container": "#eeeeee",
+              "on-error": "#ffffff",
+              "error-container": "#ffdad6",
+              "on-primary": "#ffffff",
+              "on-tertiary-fixed-variant": "#454747",
+              "background": "#f9f9f9",
+              "tertiary": "#5d5f5f",
+              "primary-fixed": "#ffe088",
+              "secondary": "#5f5e5e",
+              "on-secondary-container": "#656464",
+              "primary-container": "#d4af37",
+              "on-tertiary": "#ffffff",
+              "inverse-surface": "#2f3131",
+              "inverse-primary": "#e9c349",
+              "surface-bright": "#f9f9f9",
+              "surface-dim": "#dadada",
+              "surface-container-lowest": "#ffffff",
+              "surface-tint": "#735c00",
+              "secondary-container": "#e5e2e1",
+              "secondary-fixed": "#e5e2e1",
+              "on-tertiary-fixed": "#1a1c1c",
+              "error": "#ba1a1a",
+              "surface-container-high": "#e8e8e8",
+              "on-secondary-fixed-variant": "#474646",
+              "on-primary-container": "#554300",
+              "on-secondary": "#ffffff",
+              "on-secondary-fixed": "#1c1b1b",
+              "surface-variant": "#e2e2e2",
+              "on-primary-fixed": "#241a00",
+              "on-surface-variant": "#4d4635",
+              "on-surface": "#1a1c1c",
+              "on-error-container": "#93000a",
+              "secondary-fixed-dim": "#c8c6c5",
+              "surface": "#f9f9f9",
+              "on-primary-fixed-variant": "#574500",
+              "tertiary-fixed": "#e2e2e2",
+              "outline-variant": "#d0c5af",
+              "surface-container-highest": "#e2e2e2",
+              "on-background": "#1a1c1c",
+              "tertiary-container": "#b2b3b3",
+              "on-tertiary-container": "#444546"
+            },
+            fontFamily: {
+              "noto-serif": ["Noto Serif", "serif"],
+              "manrope": ["Manrope", "sans-serif"],
+              "label": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            background-color: #f9f9f9;
+            color: #1a1c1c;
+            font-family: 'Manrope', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .serif-display {
+            font-family: 'Noto Serif', serif;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-bottom-color: #735c00 !important;
+        }
+        .reveal-scroll {
+            opacity: 1; /* Default visibility for static generation */
+        }
+    </style>
+</head>
+<body class="bg-surface selection:bg-primary-container/30">
+<!-- TopNavBar -->
+{% include 'components/header.html' %}
+<main class="pt-40 pb-20">
+<!-- Hero Section -->
+<section class="max-w-[1920px] mx-auto px-12 mb-32">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-20 items-end">
+<div class="lg:col-span-7">
+<span class="text-primary font-body text-xs uppercase tracking-[0.4em] mb-6 block">Refinement &amp; Insight</span>
+<h1 class="serif-display text-7xl lg:text-8xl font-light tracking-tighter leading-[0.9] text-on-surface mb-12">
+                        The Shape of <br/>Your Perspective.
+                    </h1>
+<p class="font-body text-lg text-secondary max-w-xl leading-relaxed">
+                        Excellence is a continuous dialogue. We invite you to share your experience with VoxDimension, helping us sculpt the future of architectural intelligence.
+                    </p>
+</div>
+<div class="lg:col-span-5 hidden lg:block">
+<div class="w-full aspect-[4/5] overflow-hidden">
+<img class="w-full h-full object-cover grayscale brightness-110" data-alt="Minimalist architectural detail of a white concrete building with sharp shadows and golden sunlight hitting a textured surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbEf3uHRq-BYIpskutKOQcwHrua10K_Q2CkZodQ2vb2pSoF9imoppXqJ73z_zxfPVw9yVBQvR1-83u9hg4H1rX0TYt_K1UfyziFCQeV0OZQa_ATjfFn49xdGNq5Yr3hcrofLxjfn5P1xkX9AOaf-ssylLOLSzmqz7OdJ1OOCC4-cUmt1609GgQR5u4LmXW8yYYykb4HfoITQ49rO9znSMZzzKIH1--1sEZjZsw_nI6vYJQP6rxLj2JjJb91S030nKjdQOz9DWCr1s"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Feedback Form Section -->
+<section class="max-w-[1920px] mx-auto px-12 grid grid-cols-1 lg:grid-cols-12 gap-24 items-start mb-40">
+<div class="lg:col-span-4 sticky top-40">
+<div class="border-l border-primary-container pl-10 py-4">
+<h2 class="serif-display text-3xl font-light mb-6">Dialogue</h2>
+<p class="text-secondary text-sm leading-loose mb-8">
+                        Your insights are handled with the same precision we apply to our design tools. Every detail submitted is curated to refine our collective output.
+                    </p>
+<div class="space-y-4">
+<div class="flex items-center gap-4 text-xs tracking-widest uppercase text-on-surface">
+<span class="material-symbols-outlined text-primary" style="font-size: 18px;">auto_awesome</span>
+<span>Aesthetic Experience</span>
+</div>
+<div class="flex items-center gap-4 text-xs tracking-widest uppercase text-on-surface">
+<span class="material-symbols-outlined text-primary" style="font-size: 18px;">architecture</span>
+<span>Functional Precision</span>
+</div>
+<div class="flex items-center gap-4 text-xs tracking-widest uppercase text-on-surface">
+<span class="material-symbols-outlined text-primary" style="font-size: 18px;">diamond</span>
+<span>Luxury Integration</span>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-8 bg-surface-container-lowest p-16 lg:p-24 shadow-[0_40px_100px_rgba(0,0,0,0.03)]">
+<form class="space-y-20">
+<!-- Rating Scale -->
+<div class="space-y-10">
+<label class="text-xs uppercase tracking-[0.3em] font-semibold text-primary">Global Impression</label>
+<div class="flex justify-between items-center group">
+<!-- Radio Scale 1-5 -->
+<div class="flex gap-4 md:gap-12 w-full justify-between">
+<label class="cursor-pointer group/item flex flex-col items-center gap-4">
+<input class="hidden peer" name="rating" type="radio"/>
+<span class="text-neutral-300 peer-checked:text-primary transition-colors text-2xl font-light serif-display">01</span>
+<div class="w-2 h-2 rounded-full bg-neutral-200 peer-checked:bg-primary transition-all"></div>
+</label>
+<label class="cursor-pointer group/item flex flex-col items-center gap-4">
+<input class="hidden peer" name="rating" type="radio"/>
+<span class="text-neutral-300 peer-checked:text-primary transition-colors text-2xl font-light serif-display">02</span>
+<div class="w-2 h-2 rounded-full bg-neutral-200 peer-checked:bg-primary transition-all"></div>
+</label>
+<label class="cursor-pointer group/item flex flex-col items-center gap-4">
+<input class="hidden peer" name="rating" type="radio"/>
+<span class="text-neutral-300 peer-checked:text-primary transition-colors text-2xl font-light serif-display">03</span>
+<div class="w-2 h-2 rounded-full bg-neutral-200 peer-checked:bg-primary transition-all"></div>
+</label>
+<label class="cursor-pointer group/item flex flex-col items-center gap-4">
+<input class="hidden peer" name="rating" type="radio"/>
+<span class="text-neutral-300 peer-checked:text-primary transition-colors text-2xl font-light serif-display">04</span>
+<div class="w-2 h-2 rounded-full bg-neutral-200 peer-checked:bg-primary transition-all"></div>
+</label>
+<label class="cursor-pointer group/item flex flex-col items-center gap-4">
+<input checked="" class="hidden peer" name="rating" type="radio"/>
+<span class="text-neutral-300 peer-checked:text-primary transition-colors text-2xl font-light serif-display">05</span>
+<div class="w-2 h-2 rounded-full bg-neutral-200 peer-checked:bg-primary transition-all"></div>
+</label>
+</div>
+</div>
+<div class="flex justify-between text-[10px] uppercase tracking-widest text-neutral-400 px-2">
+<span>Subtle</span>
+<span>Profound</span>
+</div>
+</div>
+<!-- Details Input -->
+<div class="space-y-6">
+<label class="text-xs uppercase tracking-[0.3em] font-semibold text-primary">Detailed Commentary</label>
+<div class="relative">
+<textarea class="w-full bg-transparent border-t-0 border-x-0 border-b border-outline-variant py-4 font-body text-on-surface placeholder:text-neutral-300 text-lg focus:border-primary transition-all resize-none" placeholder="Share your architectural observations..." rows="6"></textarea>
+</div>
+</div>
+<!-- User Info Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="space-y-4">
+<label class="text-[10px] uppercase tracking-[0.3em] font-semibold text-neutral-500">Identity / Studio</label>
+<input class="w-full bg-transparent border-t-0 border-x-0 border-b border-outline-variant py-3 font-body text-on-surface placeholder:text-neutral-300 focus:border-primary transition-all" placeholder="Full Name" type="text"/>
+</div>
+<div class="space-y-4">
+<label class="text-[10px] uppercase tracking-[0.3em] font-semibold text-neutral-500">Contact Protocol</label>
+<input class="w-full bg-transparent border-t-0 border-x-0 border-b border-outline-variant py-3 font-body text-on-surface placeholder:text-neutral-300 focus:border-primary transition-all" placeholder="Email Address" type="email"/>
+</div>
+</div>
+<!-- Submit Action -->
+<div class="pt-10 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<input class="w-4 h-4 rounded-none border-outline-variant text-primary focus:ring-0" id="anon" type="checkbox"/>
+<label class="text-xs uppercase tracking-widest text-neutral-500 cursor-pointer" for="anon">Post as anonymous contribution</label>
+</div>
+<button class="bg-primary text-on-primary px-16 py-5 text-sm uppercase tracking-[0.3em] font-medium hover:bg-on-surface transition-all duration-500" type="submit">
+                            Submit Feedback
+                        </button>
+</div>
+</form>
+</div>
+</section>
+<!-- Ambient Accents -->
+<div class="fixed top-1/2 left-0 -translate-y-1/2 w-px h-64 bg-primary-container/20"></div>
+<div class="fixed bottom-0 right-12 w-px h-32 bg-primary-container/20"></div>
+</main>
+<!-- Footer -->
+{% include 'components/footer.html' %}
+</body>
+  </html>

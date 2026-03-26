@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link rel="shortcut icon" href="vox dimention.svg" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-low": "#f3f3f4",
+              "primary": "#735c00",
+              "outline": "#7f7663",
+              "primary-fixed-dim": "#e9c349",
+              "tertiary-fixed-dim": "#c6c6c7",
+              "inverse-on-surface": "#f0f1f1",
+              "surface-container": "#eeeeee",
+              "on-error": "#ffffff",
+              "error-container": "#ffdad6",
+              "on-primary": "#ffffff",
+              "on-tertiary-fixed-variant": "#454747",
+              "background": "#f9f9f9",
+              "tertiary": "#5d5f5f",
+              "primary-fixed": "#ffe088",
+              "secondary": "#5f5e5e",
+              "on-secondary-container": "#656464",
+              "primary-container": "#d4af37",
+              "on-tertiary": "#ffffff",
+              "inverse-surface": "#2f3131",
+              "inverse-primary": "#e9c349",
+              "surface-bright": "#f9f9f9",
+              "surface-dim": "#dadada",
+              "surface-container-lowest": "#ffffff",
+              "surface-tint": "#735c00",
+              "secondary-container": "#e5e2e1",
+              "secondary-fixed": "#e5e2e1",
+              "on-tertiary-fixed": "#1a1c1c",
+              "error": "#ba1a1a",
+              "surface-container-high": "#e8e8e8",
+              "on-secondary-fixed-variant": "#474646",
+              "on-primary-container": "#554300",
+              "on-secondary": "#ffffff",
+              "on-secondary-fixed": "#1c1b1b",
+              "surface-variant": "#e2e2e2",
+              "on-primary-fixed": "#241a00",
+              "on-surface-variant": "#4d4635",
+              "on-surface": "#1a1c1c",
+              "on-error-container": "#93000a",
+              "secondary-fixed-dim": "#c8c6c5",
+              "surface": "#f9f9f9",
+              "on-primary-fixed-variant": "#574500",
+              "tertiary-fixed": "#e2e2e2",
+              "outline-variant": "#d0c5af",
+              "surface-container-highest": "#e2e2e2",
+              "on-background": "#1a1c1c",
+              "tertiary-container": "#b2b3b3",
+              "on-tertiary-container": "#444546"
+            },
+            fontFamily: {
+              "noto-serif": ["Noto Serif", "serif"],
+              "manrope": ["Manrope", "sans-serif"],
+              "label": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            font-size: 20px;
+        }
+        .reveal-scroll {
+            transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-bottom: 1px solid #735c00 !important;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+{% include 'components/header.html' %}
+<main class="pt-48">
+<!-- Hero Section -->
+<section class="px-12 mb-32 max-w-[1920px] mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+<div class="lg:col-span-8">
+<h1 class="font-headline text-6xl md:text-8xl tracking-tighter leading-none mb-8">Inquiry &amp;<br/><span class="italic text-primary">Collaboration</span></h1>
+<p class="font-body text-xl text-secondary max-w-xl leading-relaxed">We invite you to experience the Architectural Atelier. Reach out to discuss bespoke collections or archival acquisitions.</p>
+</div>
+<div class="lg:col-span-4 hidden lg:block border-l border-primary-container pl-8 pb-4">
+<span class="font-label text-xs uppercase tracking-[0.3em] text-primary block mb-4">Registry</span>
+<p class="text-sm text-on-surface-variant font-light">Global Headquarters: Rue de la Paix, Paris. Satellite Studio: Tribeca, New York.</p>
+</div>
+</div>
+</section>
+<!-- Contact Content Area -->
+<section class="mb-40 px-12 max-w-[1920px] mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-24">
+<!-- Contact Form Side -->
+<div class="bg-surface-container-lowest p-12 lg:p-20 relative">
+<div class="absolute top-0 right-0 w-32 h-1 bg-primary-container"></div>
+<h2 class="font-headline text-3xl mb-16 tracking-tight">Send a Dispatch</h2>
+<form class="space-y-12" action="/submit-inquiry" method="POST">
+<div class="relative">
+<label class="font-label text-[10px] uppercase tracking-[0.2em] text-outline mb-2 block">Full Name</label>
+<input name="name" class="w-full bg-transparent border-0 border-b border-outline-variant py-4 px-0 font-body text-sm tracking-wide focus:ring-0 placeholder:text-neutral-300" placeholder="GABRIEL VINCENZO" type="text"/>
+</div>
+<div class="relative">
+<label class="font-label text-[10px] uppercase tracking-[0.2em] text-outline mb-2 block">Email Address</label>
+<input name="email" class="w-full bg-transparent border-0 border-b border-outline-variant py-4 px-0 font-body text-sm tracking-wide focus:ring-0 placeholder:text-neutral-300" placeholder="CLIENT@MAISON.COM" type="email"/>
+</div>
+<div class="relative">
+<label class="font-label text-[10px] uppercase tracking-[0.2em] text-outline mb-2 block">Nature of Inquiry</label>
+<textarea name="message" class="w-full bg-transparent border-0 border-b border-outline-variant py-4 px-0 font-body text-sm tracking-wide focus:ring-0 placeholder:text-neutral-300 resize-none" placeholder="HOW MAY WE ASSIST YOUR VISION?" rows="4"></textarea>
+</div>
+<button class="group flex items-center space-x-4 bg-primary text-on-primary px-10 py-5 font-label text-xs uppercase tracking-[0.3em] hover:opacity-90 transition-all duration-500" type="submit">
+<span>Initialize Contact</span>
+<span class="material-symbols-outlined group-hover:translate-x-2 transition-transform duration-500" data-icon="arrow_right_alt">arrow_right_alt</span>
+</button>
+</form>
+</div>
+<!-- Visual & Detail Side -->
+<div class="flex flex-col justify-between space-y-20">
+<div class="relative h-[450px] w-full bg-surface-container overflow-hidden">
+<img alt="Atelier Interior" class="w-full h-full object-cover mix-blend-multiply opacity-80 grayscale hover:grayscale-0 transition-all duration-700" data-alt="minimalist architectural interior with sharp concrete lines, large glass windows, and warm sunlight hitting a gallery wall" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3znoxDQFjUoiBKbqUUlYp-YR2CbSp2kkVFN4hXy-LMsjnj2dJwiSJIoUyrYsMDuSd1tGcnsBnFVEfyVL3PjwtBLg50fXjcH911jGkmrxSBcgfdVUufnocKa60E4PnnwhDwl7gBNi-7LXba7jMZrPdMulPh023kWLNb6I-OI61NO4_j4as3gEzysYR6AIaduZRtKKsLg0zTn6rpqhCUNxq2vmRQLEDbMOtw9fd9xch2BQjMbpfUJD-Qr3_n5AzfOFAwSWwV_LllDo"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="space-y-6">
+<h3 class="font-headline text-xl italic text-primary">Global Relations</h3>
+<div class="space-y-4">
+<div>
+<span class="font-label text-[10px] uppercase tracking-widest text-outline block mb-1">Direct Line</span>
+<p class="font-body text-lg">+33 (0) 1 42 61 58 58</p>
+</div>
+<div>
+<span class="font-label text-[10px] uppercase tracking-widest text-outline block mb-1">Digital Correspondence</span>
+<p class="font-body text-lg">concierge@voxdimension.com</p>
+</div>
+</div>
+</div>
+<div class="space-y-6">
+<h3 class="font-headline text-xl italic text-primary">Studio Location</h3>
+<div class="space-y-4">
+<div>
+<span class="font-label text-[10px] uppercase tracking-widest text-outline block mb-1">Paris Atelier</span>
+<p class="font-body text-sm leading-relaxed text-on-surface-variant">
+                                        15 Rue de la Paix<br/>
+                                        75002 Paris, France<br/>
+                                        By Appointment Only
+                                    </p>
+</div>
+<a class="inline-flex items-center space-x-2 font-label text-[10px] uppercase tracking-widest border-b border-primary text-primary pb-1 hover:opacity-70 transition-opacity" href="#">
+<span>View on Map</span>
+<span class="material-symbols-outlined text-[14px]" data-icon="north_east">north_east</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Aesthetic Divider / Spotlight -->
+<div class="w-full h-px bg-gradient-to-r from-transparent via-primary-container/30 to-transparent mb-40"></div>
+<!-- Secondary Locations Grid -->
+<section class="px-12 mb-40 max-w-[1920px] mx-auto">
+<h2 class="font-headline text-4xl mb-20 tracking-tight text-center">Our Global <span class="italic">Footprint</span></h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+<div class="bg-surface-container-low p-10 space-y-8">
+<span class="text-4xl text-outline-variant font-headline">01</span>
+<div>
+<h4 class="font-headline text-xl mb-2">New York City</h4>
+<p class="font-body text-sm text-on-surface-variant leading-loose">Lower Manhattan Studio. Dedicated to architectural visualization and textile archives.</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-10 space-y-8">
+<span class="text-4xl text-outline-variant font-headline">02</span>
+<div>
+<h4 class="font-headline text-xl mb-2">Tokyo</h4>
+<p class="font-body text-sm text-on-surface-variant leading-loose">Aoyama District. Focusing on material science and precision craftsmanship.</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-10 space-y-8">
+<span class="text-4xl text-outline-variant font-headline">03</span>
+<div>
+<h4 class="font-headline text-xl mb-2">Milan</h4>
+<p class="font-body text-sm text-on-surface-variant leading-loose">Brera Design District. Our hub for editorial partnerships and runway concepts.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+{% include 'components/footer.html' %}
+</body>
+  </html>

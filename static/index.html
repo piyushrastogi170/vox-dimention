@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VoxDimension | Architectural Precision</title>
+<link rel="shortcut icon" href="vox dimention.svg" type="image/x-icon">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@300;400;700&amp;family=Manrope:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-fixed-dim": "#e9c349",
+              "on-secondary-container": "#656464",
+              "secondary-container": "#e5e2e1",
+              "background": "#f9f9f9",
+              "on-tertiary": "#ffffff",
+              "surface-dim": "#dadada",
+              "on-primary": "#ffffff",
+              "on-surface": "#1a1c1c",
+              "primary": "#735c00",
+              "surface-container-high": "#e8e8e8",
+              "tertiary": "#5d5f5f",
+              "surface": "#f9f9f9",
+              "primary-fixed": "#ffe088",
+              "surface-container": "#eeeeee",
+              "on-surface-variant": "#4d4635",
+              "on-background": "#1a1c1c",
+              "on-secondary-fixed-variant": "#474646",
+              "on-primary-container": "#554300",
+              "error": "#ba1a1a",
+              "outline": "#7f7663",
+              "on-secondary": "#ffffff",
+              "outline-variant": "#d0c5af",
+              "on-tertiary-fixed-variant": "#454747",
+              "on-primary-fixed-variant": "#574500",
+              "secondary-fixed-dim": "#c8c6c5",
+              "primary-container": "#d4af37",
+              "surface-container-low": "#f3f3f4",
+              "on-secondary-fixed": "#1c1b1b",
+              "surface-bright": "#f9f9f9",
+              "on-error-container": "#93000a",
+              "inverse-primary": "#e9c349",
+              "surface-container-highest": "#e2e2e2",
+              "inverse-on-surface": "#f0f1f1",
+              "on-tertiary-fixed": "#1a1c1c",
+              "error-container": "#ffdad6",
+              "surface-tint": "#735c00",
+              "on-error": "#ffffff",
+              "on-tertiary-container": "#444546",
+              "secondary-fixed": "#e5e2e1",
+              "surface-container-lowest": "#ffffff",
+              "tertiary-fixed": "#e2e2e2",
+              "tertiary-fixed-dim": "#c6c6c7",
+              "secondary": "#5f5e5e",
+              "tertiary-container": "#b2b3b3",
+              "inverse-surface": "#2f3131",
+              "on-primary-fixed": "#241a00",
+              "surface-variant": "#e2e2e2"
+            },
+            fontFamily: {
+              "noto-serif": ["Noto Serif", "serif"],
+              "manrope": ["Manrope", "sans-serif"],
+              "label": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            font-size: 20px;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+        }
+        .reveal-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: reveal 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        @keyframes reveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .gold-glow {
+            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
+        }
+    </style>
+</head>
+<body class="bg-surface font-manrope text-on-surface selection:bg-primary-container/30">
+<!-- TopNavBar -->
+{% include 'components/header.html' %}
+<!-- Hero Section -->
+<section class="relative min-h-screen flex flex-col items-center justify-center text-center px-6 pt-32 pb-20 gold-glow overflow-hidden">
+<div class="max-w-5xl space-y-8 reveal-scroll" style="animation-delay: 0.2s;">
+<span class="font-manrope text-[0.75rem] tracking-[0.4em] uppercase text-primary">Architectural Excellence</span>
+<h1 class="font-noto-serif text-6xl md:text-8xl lg:text-9xl font-light leading-[1.1] tracking-tighter text-on-surface">
+                Define the <br/> <span class="italic text-primary">Unseen</span> Dimension
+            </h1>
+<p class="max-w-2xl mx-auto font-manrope text-lg text-stone-500 leading-relaxed font-light">
+                Bridging the gap between conceptual vision and structural reality. VoxDimension provides the atelier for the world's most ambitious architects.
+            </p>
+<div class="pt-8">
+    <a href="/studio">
+<button class="px-12 py-5 bg-primary text-white text-sm uppercase tracking-[0.2em] font-medium hover:shadow-[0_0_40px_rgba(115,92,0,0.2)] transition-all duration-700">
+                    Explore Studio
+                </button></a>
+</div>
+</div>
+<div class="absolute bottom-12 left-1/2 -translate-x-1/2 reveal-scroll" style="animation-delay: 1s;">
+<div class="w-[1px] h-24 bg-gradient-to-b from-primary-container to-transparent"></div>
+</div>
+</section>
+<!-- Tool Preview (Glassmorphism) -->
+<section class="py-32 px-6 bg-white relative">
+<div class="max-w-7xl mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-20 items-center">
+<div class="lg:col-span-5 space-y-12 reveal-scroll">
+<h2 class="font-noto-serif text-5xl font-light leading-tight">The Precision <br/>Workspace</h2>
+<div class="space-y-8">
+<div class="flex gap-6 group">
+<span class="font-noto-serif text-2xl text-primary-container/40 group-hover:text-primary transition-colors duration-500">01</span>
+<div>
+<h3 class="font-manrope text-lg font-semibold uppercase tracking-widest mb-2">Dynamic Rendering</h3>
+<p class="text-stone-500 font-light leading-relaxed">Real-time light manipulation across complex geometric volumes with zero latency.</p>
+</div>
+</div>
+<div class="flex gap-6 group">
+<span class="font-noto-serif text-2xl text-primary-container/40 group-hover:text-primary transition-colors duration-500">02</span>
+<div>
+<h3 class="font-manrope text-lg font-semibold uppercase tracking-widest mb-2">Structural Integrity</h3>
+<p class="text-stone-500 font-light leading-relaxed">Automated load-bearing analysis integrated directly into your creative canvas.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-7 relative reveal-scroll" style="animation-delay: 0.4s;">
+<div class="aspect-square w-full bg-surface-container-low overflow-hidden relative border-[0.5px] border-outline-variant/20">
+<img alt="Interior architecture" class="w-full h-full object-cover opacity-90 scale-105" data-alt="Ultra-modern minimalist white concrete architectural interior with dramatic sunlight casting sharp shadows across clean lines" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeOxKhjcpx6hH8PAAEw1A3NmPN75CU5A89AcsQZoAHtHazEycPBzGUmoO2b76Gz87Pt0QCqMooikLT1Y44vNpEvstPwLaLiPiirG87MIHce90jhwpeJ1bj5yRr0Kaaz4A9EXV-a0BELvDfOiZiGAMULgDj4SVFOYNceIY0PxPn6Qr1rY20hmNLx5dXNhocSURqa_p8WGd2S9YzOf3_ni7Yf-NxrsHdwaSsjBVmo8be-qEAuy0leD5DMDc6ynafg0u1vB4_Pgd0eAQ"/>
+<!-- Floating Glass UI Elements -->
+<div class="absolute top-12 left-12 p-8 bg-white/40 backdrop-blur-xl border-[0.5px] border-primary-container/30 w-64 shadow-2xl">
+<div class="flex justify-between items-center mb-6">
+<span class="text-[10px] uppercase tracking-widest font-bold">Parameters</span>
+<span class="material-symbols-outlined text-primary scale-75">tune</span>
+</div>
+<div class="space-y-4">
+<div class="h-[1px] w-full bg-primary-container/20"></div>
+<div class="h-[1px] w-3/4 bg-primary-container/20"></div>
+<div class="h-[1px] w-1/2 bg-primary"></div>
+</div>
+</div>
+<div class="absolute bottom-12 right-12 p-8 bg-on-surface/90 backdrop-blur-xl text-white w-72">
+<p class="font-noto-serif italic text-xl mb-4">"Architecture starts where engineering ends."</p>
+<span class="text-[10px] uppercase tracking-[0.3em] opacity-60">Volume Analysis V.4</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Section (Bento / High-Fashion Grid) -->
+<section class="py-40 px-6 bg-surface">
+<div class="max-w-7xl mx-auto space-y-24">
+<div class="text-center space-y-4 reveal-scroll">
+<span class="font-manrope text-[0.75rem] tracking-[0.4em] uppercase text-primary">The Collective</span>
+<h2 class="font-noto-serif text-5xl font-light">Architectural Foundations</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+<!-- Card 1 -->
+<div class="space-y-8 reveal-scroll" style="animation-delay: 0.1s;">
+<div class="aspect-[4/5] bg-surface-container-low overflow-hidden group">
+<img alt="Skyscraper facade" class="w-full h-full object-cover grayscale hover:grayscale-0 hover:scale-110 transition-all duration-1000" data-alt="Close-up of a glass and steel skyscraper facade reflecting a clear sky with sharp geometric patterns" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDps0UJN-LnmmaS08SWJee-YPeHRqQWX39eJEN9KmZeYU5hx26cRH5541QOIxpNfyIXPREFBnsETIeO81LVjBDxOW_7uquFIIBMLfVIavKsGuxAhS9iPT5J853ZYUa4PEk3J_SqdVAEvKk5B_VrMhs_ZzoUjTi_OYRxNZl3cQ2onIXvxmkPVXQ6FdEq8_e2_CEwnsuB4dCB-NPWNzeJSuPuYcKzlrQTvM467V-CYPXpBpABZKZZskt0WTiaKivdDLiAJO2acPkA3P0"/>
+</div>
+<div class="space-y-4">
+<h4 class="font-noto-serif text-2xl">Atelier Workspace</h4>
+<p class="text-stone-500 font-light leading-relaxed">A curated environment designed for deep focus and precision modeling.</p>
+<a class="inline-block font-manrope text-[10px] uppercase tracking-widest text-primary border-b border-primary-container/40 pb-1 hover:border-primary transition-colors" href="#">Learn More</a>
+</div>
+</div>
+<!-- Card 2 (Offset) -->
+<div class="space-y-8 md:translate-y-20 reveal-scroll" style="animation-delay: 0.3s;">
+<div class="aspect-[4/5] bg-surface-container-low overflow-hidden group">
+<img alt="Architectural model" class="w-full h-full object-cover grayscale hover:grayscale-0 hover:scale-110 transition-all duration-1000" data-alt="Minimalist wooden architectural scale model on a white table in a sun-drenched studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0BodHjhFY19QjDEvjG8uOZE3DS_yM4E-RXGNe_ZeEy8iyOAI_jWp7twfGEOR535qdmGWeWsAcJ9EoKGxBQTXBjWiLQ8JRQbi4QZ1TXxz4K1jb_8UWu5dn6Ee25wT7z_7Zr28rghqCfyyPyQlzU8x-4i0EzkG1W9JF82Ow_LimNI3gAAc-H9sON7-eE_BmiviPJmcDppeBAxWGC3GTzETUqjw2H0OssfsjM30_PNSW7MWg05V-Fgpb8HzLu1w1HD2b8YcoWVwf8V8"/>
+</div>
+<div class="space-y-4">
+<h4 class="font-noto-serif text-2xl">Global Archive</h4>
+<p class="text-stone-500 font-light leading-relaxed">Access a digital library of structural history and avant-garde material studies.</p>
+<a class="inline-block font-manrope text-[10px] uppercase tracking-widest text-primary border-b border-primary-container/40 pb-1 hover:border-primary transition-colors" href="#">Explore Library</a>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="space-y-8 reveal-scroll" style="animation-delay: 0.5s;">
+<div class="aspect-[4/5] bg-surface-container-low overflow-hidden group">
+<img alt="Concrete structure" class="w-full h-full object-cover grayscale hover:grayscale-0 hover:scale-110 transition-all duration-1000" data-alt="Curving raw concrete architectural structure with dramatic shadows and light play" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMZCgaedX5u8jUMvFB30d6w7Ki3oiJQtuCdlysI9P3B7UBHVbFOfWfeO8fjn-vOX4CqhEuIgUSimDcS1MaA7HgbrEbu4fO0J9DK4StkR4Y-PHfi4B3aqSnXEwVRPNd8qdKTBuIj4AkzESv1ynxUnEzXN17heC2tioD6ZTtncNwTnkkuZldViZitupK8ngLDaPfrTD4D5cf6i-T_cO-yZK7chaPhLowPJOKcLUO6DehkpYAQXY1h7r1hdxerhdT3rrzrNMLyB-1oC8"/>
+</div>
+<div class="space-y-4">
+<h4 class="font-noto-serif text-2xl">Studio Sync</h4>
+<p class="text-stone-500 font-light leading-relaxed">Collaborate across timezones with high-fidelity spatial synchronization.</p>
+<a class="inline-block font-manrope text-[10px] uppercase tracking-widest text-primary border-b border-primary-container/40 pb-1 hover:border-primary transition-colors" href="#">Start Session</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Full Width Quote / Minimal CTA -->
+<section class="py-40 bg-white px-6">
+<div class="max-w-4xl mx-auto text-center space-y-12 reveal-scroll">
+<h2 class="font-noto-serif text-4xl md:text-6xl font-light italic leading-tight text-on-surface">
+                "We do not just build structures; we curate the space where life unfolds."
+            </h2>
+<div class="flex flex-col items-center gap-6">
+<div class="w-12 h-[1px] bg-primary"></div>
+<span class="font-manrope text-[0.75rem] tracking-[0.4em] uppercase text-stone-400">Join the Collective</span>
+<a href="https://josmithservices.in/projectinquiry">
+<button class="px-16 py-6 border border-on-surface text-on-surface text-[10px] uppercase tracking-[0.3em] hover:bg-on-surface hover:text-white transition-all duration-700">
+                    Request For Similar Website
+                </button>
+            </a>
+</div>
+</div>
+</section>
+<!-- Footer -->
+{% include 'components/footer.html' %}
+</body>
+</html>

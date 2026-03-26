@@ -1,0 +1,221 @@
+
+    <style>
+        #underline {
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    background: #facc15;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+}
+
+.nav-link {
+    position: relative;
+    padding-bottom: 4px;
+}
+        
+        .nav-link.active {
+            color: #000;
+        }
+        
+        
+        .mobile-link {
+            font-size: 14px;
+            text-transform: uppercase;
+            color: #444;
+        }
+
+        #mobile-menu {
+    transition: all 0.3s ease;
+}
+
+#mobile-menu.hidden {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+    pointer-events: none;
+}
+
+#mobile-menu:not(.hidden) {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+        </style>
+        
+        
+        <!-- TopNavBar -->
+
+<nav class="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-[100] flex justify-between items-center px-4 md:px-12 py-3 md:py-4 border-[0.5px] border-primary-container/40 bg-white/60 backdrop-blur-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.04)]">
+
+    <!-- Logo -->
+<div class="flex items-center gap-2 font-noto-serif text-lg md:text-2xl font-light tracking-tight text-primary">
+    
+        <!-- SVG Logo -->
+        <svg 
+            class="w-6 h-6 md:w-8 md:h-8 shrink-0"
+            xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 85 70"
+            fill="none"
+        >
+            <path d="M31.8 52.57c-2.56-4.18-4.82-8-7.17-11.66-.66-1-.08-1.71.39-2.47q6.68-11 13.37-22l1.28-2.14c.68-1.09.47-1.49-.9-1.71-3-.46-4.92.62-6.06 3.38-.75 1.83-1.53 1.54-2.44 0-2.85-4.79-5.75-9.54-8.67-14.29C21 .67 20.58 0 22.39 0 35.8.07 49.2.08 62.6.12c.14 0 .29.12.73.32z" fill="#a98e50"/>
+            
+            <path d="M84.3.36l-42.14 69.1c-2.43-4-4.71-7.71-7-11.44-.7-1.14.16-1.89.64-2.69Q48.35 34.66 60.93 14l7.4-12.13c.47-.77.79-1.57 2-1.55C74.8.4 79.28.36 84.3.36zM21.24 35.19L0 .36h14.12c.93 0 1.29.6 1.68 1.24q6.11 10 12.21 20a1.94 1.94 0 0 1 .15 2.29c-2.28 3.64-4.49 7.33-6.92 11.3z" fill="#06202b"/>
+        </svg>
+    
+        <!-- Text -->
+        <span class="leading-none">VoxDimension</span>
+    </div>
+
+    <!-- Desktop Menu -->
+    <div id="nav-links" class="hidden md:flex gap-12 relative">
+
+            <a class="nav-link font-noto-serif tracking-tight text-sm uppercase 
+                {% if page == 'home' %}active text-primary{% else %}text-stone-500{% endif %}" 
+                href="/">
+                Home
+            </a>
+        
+            <a class="nav-link font-noto-serif tracking-tight text-sm uppercase 
+                {% if page == 'studio' %}active text-primary{% else %}text-stone-500{% endif %}" 
+                href="/studio">
+                Studio
+            </a>
+        
+            <a class="nav-link font-noto-serif tracking-tight text-sm uppercase 
+                {% if page == 'who-developed' %}active text-primary{% else %}text-stone-500{% endif %}" 
+                href="/who-developed">
+                Who Developed
+            </a>
+        
+            <a class="nav-link font-noto-serif tracking-tight text-sm uppercase 
+                {% if page == 'inquiry' %}active text-primary{% else %}text-stone-500{% endif %}" 
+                href="/inquiry">
+                Inquiry
+            </a>
+        
+            <!-- underline -->
+            <span id="underline"></span>
+        
+        </div>
+
+    <!-- Right -->
+    <div class="flex items-center gap-3 md:gap-6">
+
+        <!-- hide icon on very small screens -->
+        <div class="flex items-center gap-3">
+
+                {% if user %}
+                    <!-- User Info (optional) -->
+                    <div class="hidden sm:flex items-center gap-2">
+                        <img src="{{ user.picture }}" class="w-8 h-8 rounded-full">
+                        <span class="text-sm font-medium">{{ user.name }}</span>
+                    </div>
+            
+                    <!-- Logout Button -->
+                    <a href="/logout"
+                       class="bg-red-500 text-white px-4 py-2 text-xs uppercase tracking-[0.2em] font-medium rounded-full hover:opacity-90 transition">
+                        Logout
+                    </a>
+            
+                {% else %}
+                    <!-- Login -->
+                    <a href="/sign-in" 
+                       class="hidden sm:block text-primary text-sm font-medium hover:underline transition">
+                        Login
+                    </a>
+                
+                    <!-- Divider -->
+                    <span class="hidden sm:block w-[1px] h-5 bg-primary/20"></span>
+                
+                    <!-- Sign Up -->
+                    <a href="/sign-up"
+                       class="hidden md:inline-flex items-center justify-center bg-primary text-on-primary px-5 py-2 text-xs uppercase tracking-[0.2em] font-medium rounded-full hover:opacity-90 transition">
+                        Get Started
+                    </a>
+                {% endif %}
+            
+            </div>
+
+        <!-- Mobile button -->
+        <button id="menu-btn" class="md:hidden text-2xl text-primary">
+            ☰
+        </button>
+    </div>
+</nav>
+<!-- Mobile Menu -->
+<div id="mobile-menu"
+class="hidden fixed top-20 left-1/2 -translate-x-1/2 w-[92%] bg-white/80 backdrop-blur-2xl border border-primary-container/20 rounded-2xl p-6 flex flex-col gap-5 z-[99] shadow-xl">
+
+    <a class="mobile-link" href="/">Home</a>
+    <a class="mobile-link" href="/studio">Studio</a>
+    <a class="mobile-link" href="/who-developed">Who Developed</a>
+    <a class="mobile-link" href="/inquiry">Inquiry</a>
+
+    {% if user %}
+        <!-- User Info -->
+        <div class="flex items-center gap-3 mt-4">
+            <img src="{{ user.picture }}" class="w-10 h-10 rounded-full">
+            <div>
+                <p class="text-sm font-medium">{{ user.name }}</p>
+                <p class="text-xs text-gray-500">{{ user.email }}</p>
+            </div>
+        </div>
+
+        <!-- Logout -->
+        <a href="/logout">
+            <button class="mt-4 w-full bg-red-500 text-white py-3 text-xs uppercase tracking-[0.2em] font-medium rounded-lg">
+                Logout
+            </button>
+        </a>
+
+    {% else %}
+        <!-- Login -->
+        <a href="/sign-in">
+            <button class="w-full bg-primary text-on-primary py-3 text-xs uppercase tracking-[0.2em] font-medium rounded-lg">
+                Login
+            </button>
+        </a>
+
+        <!-- Sign Up -->
+        <a href="/sign-up">
+            <button class="w-full bg-primary text-on-primary py-3 text-xs uppercase tracking-[0.2em] font-medium rounded-lg">
+                Get Started
+            </button>
+        </a>
+    {% endif %}
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+        
+    const links = document.querySelectorAll(".nav-link");
+    const underline = document.getElementById("underline");
+
+    function moveUnderline(el) {
+        underline.style.width = el.offsetWidth + "px";
+        underline.style.left = el.offsetLeft + "px";
+    }
+
+    // set initial active
+    const active = document.querySelector(".nav-link.active");
+    if (active) moveUnderline(active);
+
+    // click event
+    links.forEach(link => {
+        link.addEventListener("click", function () {
+            links.forEach(l => l.classList.remove("active"));
+            this.classList.add("active");
+            moveUnderline(this);
+        });
+    });
+
+    // mobile menu toggle (FIXED)
+    const btn = document.getElementById("menu-btn");
+    const menu = document.getElementById("mobile-menu");
+
+    btn.addEventListener("click", () => {
+        menu.classList.toggle("hidden");
+    });
+
+});
+</script>

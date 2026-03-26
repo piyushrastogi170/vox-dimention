@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>About | VoxDimension</title>
+<link rel="shortcut icon" href="vox dimention.svg" type="image/x-icon">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-low": "#f3f3f4",
+                        "primary": "#735c00",
+                        "outline": "#7f7663",
+                        "primary-fixed-dim": "#e9c349",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "inverse-on-surface": "#f0f1f1",
+                        "surface-container": "#eeeeee",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "background": "#f9f9f9",
+                        "tertiary": "#5d5f5f",
+                        "primary-fixed": "#ffe088",
+                        "secondary": "#5f5e5e",
+                        "on-secondary-container": "#656464",
+                        "primary-container": "#d4af37",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#2f3131",
+                        "inverse-primary": "#e9c349",
+                        "surface-bright": "#f9f9f9",
+                        "surface-dim": "#dadada",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#735c00",
+                        "secondary-container": "#e5e2e1",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#e8e8e8",
+                        "on-secondary-fixed-variant": "#474646",
+                        "on-primary-container": "#554300",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "surface-variant": "#e2e2e2",
+                        "on-primary-fixed": "#241a00",
+                        "on-surface-variant": "#4d4635",
+                        "on-surface": "#1a1c1c",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "surface": "#f9f9f9",
+                        "on-primary-fixed-variant": "#574500",
+                        "tertiary-fixed": "#e2e2e2",
+                        "outline-variant": "#d0c5af",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-background": "#1a1c1c",
+                        "tertiary-container": "#b2b3b3",
+                        "on-tertiary-container": "#444546"
+                    },
+                    fontFamily: {
+                        "noto-serif": ["Noto Serif", "serif"],
+                        "manrope": ["Manrope", "sans-serif"],
+                        "label": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #f9f9f9;
+            color: #1a1c1c;
+            font-family: 'Manrope', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .reveal-scroll {
+            opacity: 1;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        .serif-heading {
+            font-family: 'Noto Serif', serif;
+        }
+        .gold-accent-line {
+            width: 1px;
+            background-color: #d4af37;
+        }
+    </style>
+</head>
+<body class="selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+{% include 'components/header.html' %}
+<main class="pt-32">
+<!-- Hero Section: The Architectural Vision -->
+<section class="px-12 mb-40 max-w-[1920px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-end">
+<div class="md:col-span-7">
+<span class="text-primary font-body text-xs tracking-[0.3em] uppercase mb-6 block">Origin &amp; Purpose</span>
+<h1 class="serif-heading text-6xl md:text-8xl font-light tracking-tighter leading-tight mb-12">
+                    Defining the <span class="italic">Dimensions</span> of Intelligence.
+                </h1>
+</div>
+<div class="md:col-span-5 pb-4">
+<p class="font-body text-lg leading-relaxed text-secondary max-w-md">
+                    VoxDimension is not merely a tool; it is a digital atelier where precision engineering meets architectural elegance. We curate AI experiences for the discerning professional.
+                </p>
+</div>
+</section>
+<!-- Full Bleed Architectural Imagery -->
+<section class="w-full mb-40 overflow-hidden h-[716px]">
+<img alt="Minimalist architectural facade with sharp lines and dramatic shadows in high-contrast black and white" class="w-full h-full object-cover grayscale opacity-90 transition-transform duration-1000 hover:scale-105" data-alt="Minimalist modern skyscraper facade with clean glass lines and sharp architectural shadows under a clear bright sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA47Yj6uZDQIzhA_Ax2JVetBpXZvQGeB0VkOLNdr__R5EjFpS_BPUtQTdz7ChnFqwx_u2pxpLYKtD_dboUNrT9AG_FlRGMcc67RAO0aXCv81g9IY_sI05-0uLpJ6oo9EmoqljxFg1wvI-McFkLEY7ewMmUx4Fa7ocKgOv75BtGr_D0GxvJo_BNcHutWAZao_CNe6gHCa03lNAWrYbvphHBrFdlb6W8NKZTe6iSUmQyTNB5BybaFBO-E6LKOp0MyvLUz7VobpUko1U0"/>
+</section>
+<!-- The Mission & The Maker (Asymmetric Layout) -->
+<section class="px-12 mb-40 max-w-[1920px] mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-20">
+<div class="md:col-span-4 border-l border-primary-container pl-12">
+<h2 class="serif-heading text-4xl font-light mb-8">The Mission</h2>
+<p class="font-body text-sm leading-[1.8] text-secondary mb-12">
+                        At VoxDimension, we believe that high-end software should reflect the same intentionality as a custom-built residence. Our mission is to bridge the gap between complex algorithmic power and human-centric design.
+                    </p>
+<div class="space-y-6">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-xl">token</span>
+<span class="font-body text-xs tracking-widest uppercase">Structural Integrity</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-xl">architecture</span>
+<span class="font-body text-xs tracking-widest uppercase">Ethereal Interface</span>
+</div>
+</div>
+</div>
+<div class="md:col-span-8 bg-surface-container-low p-20 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-12 opacity-5">
+<span class="material-symbols-outlined text-[15rem]">settings_input_component</span>
+</div>
+<div class="relative z-10">
+<span class="text-primary font-body text-[10px] tracking-[0.5em] uppercase mb-4 block">Architectural Lead</span>
+<h2 class="serif-heading text-5xl font-light mb-10">Josmith Services</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<p class="font-body text-sm leading-[1.8] text-on-surface">
+                                Developed by the specialized team at Josmith Services, VoxDimension represents the pinnacle of our AI consulting practice. We don't just build scripts; we build environments. Our expertise lies in crafting bespoke AI infrastructures that feel intuitive yet immensely powerful.
+                            </p>
+<p class="font-body text-sm leading-[1.8] text-on-surface">
+                                Based in the digital frontier, Josmith Services has pioneered the 'Atelier Method' for software development—focusing on small-batch, high-detail deployments for luxury brands and architectural firms worldwide.
+                            </p>
+</div>
+<div class="mt-16 flex items-center gap-12">
+<div>
+<div class="text-3xl serif-heading text-primary mb-1">127+</div>
+<div class="text-[10px] tracking-widest uppercase text-secondary">Custom Nodes</div>
+</div>
+<div class="gold-accent-line h-12"></div>
+<div>
+<div class="text-3xl serif-heading text-primary mb-1">14k</div>
+<div class="text-[10px] tracking-widest uppercase text-secondary">Hours Refined</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Signature Reveal Grid (Bento Style but Sharp) -->
+<section class="px-12 mb-40 max-w-[1920px] mx-auto">
+<h3 class="serif-heading text-3xl font-light mb-16 text-center italic">The Core Pillars</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-0">
+<div class="border border-outline-variant/20 p-16 aspect-square flex flex-col justify-between group hover:bg-surface-container-highest transition-colors duration-500">
+<span class="material-symbols-outlined text-4xl text-primary/40 group-hover:text-primary transition-colors">all_inclusive</span>
+<div>
+<h4 class="serif-heading text-2xl mb-4">Timeless Logic</h4>
+<p class="font-body text-xs text-secondary leading-relaxed">Algorithms designed to evolve, ensuring that your tools never go out of style.</p>
+</div>
+</div>
+<div class="border border-outline-variant/20 p-16 aspect-square flex flex-col justify-between group hover:bg-surface-container-highest transition-colors duration-500">
+<span class="material-symbols-outlined text-4xl text-primary/40 group-hover:text-primary transition-colors">grid_view</span>
+<div>
+<h4 class="serif-heading text-2xl mb-4">Precision Grid</h4>
+<p class="font-body text-xs text-secondary leading-relaxed">Every pixel is placed with architectural intent on an 8-point structural system.</p>
+</div>
+</div>
+<div class="border border-outline-variant/20 p-16 aspect-square flex flex-col justify-between group hover:bg-surface-container-highest transition-colors duration-500">
+<span class="material-symbols-outlined text-4xl text-primary/40 group-hover:text-primary transition-colors">model_training</span>
+<div>
+<h4 class="serif-heading text-2xl mb-4">Ethical Craft</h4>
+<p class="font-body text-xs text-secondary leading-relaxed">Intelligence with integrity. We hand-select data models for aesthetic and moral clarity.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Spotlight Section -->
+<section class="px-12 mb-40 max-w-[1920px] mx-auto">
+<div class="bg-on-surface text-surface py-32 px-12 text-center relative overflow-hidden">
+<!-- Ambient Glow Texture -->
+<div class="absolute inset-0 opacity-20 pointer-events-none" style="background: radial-gradient(circle at center, #d4af37 0%, transparent 70%);"></div>
+<div class="relative z-10 max-w-3xl mx-auto">
+<h2 class="serif-heading text-5xl md:text-6xl font-light mb-12 leading-tight">Begin Your Architectural Journey.</h2>
+<p class="font-body text-lg text-surface-variant/80 mb-16 max-w-xl mx-auto">
+                        Experience the convergence of luxury and logic. Enter the VoxDimension atelier today.
+                    </p>
+<div class="flex flex-col md:flex-row gap-8 justify-center items-center">
+<button class="bg-primary text-on-primary px-12 py-5 text-sm tracking-[0.2em] uppercase transition-all duration-300 hover:bg-primary-container hover:text-on-primary-container">
+                            Enter the Studio
+                        </button>
+<button class="border border-outline-variant/30 text-surface px-12 py-5 text-sm tracking-[0.2em] uppercase hover:bg-surface hover:text-on-surface transition-all duration-300">
+                            Contact Josmith
+                        </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+{% include 'components/footer.html' %}
+</body>
+</html>
