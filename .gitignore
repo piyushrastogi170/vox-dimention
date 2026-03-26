@@ -1,5 +1,6 @@
 .env
 venv/
 __pycache__/
-vox-dimention-firebase-adminsdk-fbsvc-6adbb0dea5.json
+vox-dimention-firebase-adminsdk-fbsvc-5d0c64146b.json
+app/vox-dimention-firebase-adminsdk-fbsvc-5d0c64146b.json
 *.pyc
