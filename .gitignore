@@ -7,4 +7,7 @@ app/__pycache__/*.pyc
 app/__pycache__/
 app/firebase_config.py
 firebase_config.py
+vox-dimention-6c034ebcc7b4.json
 *.pyc
+.env
+*.json

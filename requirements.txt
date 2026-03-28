@@ -1,0 +1,6 @@
+flask
+authlib
+python-dotenv
+firebase-admin
+werkzeug
+edge-tts
