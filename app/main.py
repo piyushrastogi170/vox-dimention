@@ -4,6 +4,9 @@ from dotenv import load_dotenv
 from auth import auth_bp, init_oauth
 from flask import Flask, session, redirect, render_template, request
 from werkzeug.security import generate_password_hash, check_password_hash
+import gspread
+from google.oauth2.service_account import Credentials
+from datetime import datetime
 
 load_dotenv()
 
@@ -14,6 +17,53 @@ app.secret_key = os.environ.get("SECRET_KEY")
 init_oauth(app)
 app.register_blueprint(auth_bp)
 
+
+
+
+# ================= GOOGLE SHEETS SETUP ================= #
+
+scope = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive"
+]
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+creds_path = os.environ.get("GOOGLE_CREDS")
+
+creds = Credentials.from_service_account_file(
+    os.path.join(BASE_DIR, creds_path),
+    scopes=scope
+)
+
+gs_client = gspread.authorize(creds)
+
+spreadsheet = gs_client.open("Forms-data")
+
+users_data = spreadsheet.worksheet("users")
+inquiry_sheet = spreadsheet.worksheet("inquiry")
+
+def save_signup_to_sheet(name, email, mobile, country, hashed_password):
+    date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    users_data.append_row([
+        name,
+        email,
+        mobile,
+        country,
+        "PROTECTED",
+        date
+    ])
+
+def save_inquiry_to_sheet(name, email, message):
+    date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    inquiry_sheet.append_row([
+        name,
+        email,
+        message,
+        date
+    ])
 
 
 # ================= API For Inquiry ================= #
@@ -29,6 +79,10 @@ def submit_inquiry():
         "email": email,
         "message": message
     })
+    try:
+        save_inquiry_to_sheet(name, email, message)
+    except Exception as e:
+        print("Inquiry Sheet error:", e)
 
     return redirect('/inquiry-success')
 
@@ -56,7 +110,7 @@ def submit_sign_up():
     user_doc = user_ref.get()
 
     if user_doc.exists:
-        return "User already registered. Please login."
+        return redirect('/sign-in')
 
     else:
         user_ref.set({
@@ -67,6 +121,12 @@ def submit_sign_up():
             "password": hashed_password,
             "picture": DEFAULT_AVATAR
         })
+
+        # ✅ NEW: Google Sheet me save
+        try:
+            save_signup_to_sheet(name, email, mobile, country, hashed_password)
+        except Exception as e:
+            print("Sheet error:", e)
 
     return redirect('/sign-in')
 

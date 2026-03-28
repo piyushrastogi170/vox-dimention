@@ -54,3 +54,4 @@ def callback():
     }
 
     return redirect('/studio')
+    
