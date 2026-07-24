@@ -7,7 +7,6 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@300;400;700&amp;family=Manrope:wght@200;300;400;500;600&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -84,123 +83,283 @@
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #d4af37; }
+        /* Voice card states */
+        .voice-card { transition: background 0.2s, border-color 0.2s; cursor: pointer; }
+        .voice-card:hover { background: rgba(115,92,0,0.04); }
+        .voice-card.selected { border-left: 2px solid #735c00; background: rgba(115,92,0,0.06); }
+        .preview-spin { animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── Waveform Canvas ────────────────────────── */
+        #waveformCanvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+        }
+        /* Glow layers behind the canvas for depth */
+        .viz-glow {
+            position: absolute;
+            inset: 0;
+            z-index: 5;
+            background: radial-gradient(ellipse 60% 40% at 50% 100%,
+                rgba(115,92,0,0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        /* Idle breathing ring */
+        @keyframes viz-breathe {
+            0%,100% { opacity: 0.18; transform: scaleX(1);   }
+            50%      { opacity: 0.32; transform: scaleX(1.02); }
+        }
+        .viz-breathe { animation: viz-breathe 3s ease-in-out infinite; }
     </style>
 </head>
 <body class="bg-surface-container-lowest text-on-surface font-body selection:bg-primary-fixed-dim/30">
 <!-- Top Navigation Bar -->
 {% include 'components/header.html' %}
-<div class="flex h-screen overflow-hidden pt-24">
+{% include 'components/sidebar.html' %}
+<div class="flex min-h-screen pt-24">
 
 <!-- Main Content Workspace -->
-<main class="flex-1 bg-surface-container-lowest relative">
+<main class="flex-1 bg-surface-container-lowest relative ml-12">
 <!-- Decorative Glow Background -->
 <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-fixed-dim/5 blur-[120px] rounded-full pointer-events-none"></div>
 <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 h-full">
 <!-- Left Panel: Content Editor -->
-<section class="p-12 lg:p-20 flex flex-col gap-12 border-r-[0.5px] border-outline-variant/10">
+<section class="p-12 lg:p-20 flex flex-col justify-between border-r-[0.5px] border-outline-variant/10">
 <header class="flex flex-col gap-4">
 <span class="text-[0.7rem] uppercase tracking-[0.4em] text-primary">Manuscript Edition</span>
 <h1 class="font-headline text-5xl font-light tracking-tight text-on-surface">Atelier Space</h1>
 </header>
-<div class="flex-1 flex flex-col gap-6">
+<div class="flex flex-col gap-6">
 <label class="text-[0.65rem] uppercase tracking-widest text-stone-400">Composition Buffer</label>
-<form action="">
-<textarea class="flex-1 bg-transparent border border-primary/40 h-full w-full mt-4 p-4 focus:ring-0 p-0 text-lg md:text-xl font-light leading-relaxed text-on-surface/80 placeholder:text-stone-300 resize-none min-h-[400px]" placeholder="Begin your architectural narrative here..."></textarea>
-</div>
-<div class="flex gap-8 items-center pt-8 border-t border-outline-variant/10">
-<button id="generateBtn" class="px-10 py-4 bg-primary text-on-primary text-[0.7rem] uppercase tracking-[0.3em] font-medium hover:bg-primary/90 transition-all duration-500 shadow-xl shadow-primary/10 active:scale-95">
-                            Generate Voice
-                        </button>
-                    </form>
+
+        <textarea id="textInput"
+        class="w-full h-[220px] bg-transparent border border-outline-variant/40 
+        focus:border-primary outline-none p-4 text-lg font-light 
+        text-on-surface/80 placeholder:text-on-surface/30 resize-none transition"
+        placeholder="Begin your architectural narrative here..."></textarea>
+
+        <!-- Word count bar — matches existing input theme -->
+        <div class="flex items-center justify-between mt-1 px-0">
+            <span class="text-[0.6rem] uppercase tracking-widest text-on-surface/30">Words</span>
+            <div class="flex items-center gap-2">
+                <!-- Progress pill -->
+                <div class="w-24 h-[3px] bg-outline-variant/20 relative overflow-hidden">
+                    <div id="wordProgressBar"
+                         class="absolute top-0 left-0 h-full bg-primary transition-all duration-200"
+                         style="width:0%"></div>
+                </div>
+                <!-- Count badge — styled like existing inputs -->
+                <span id="wordCountBadge"
+                      class="border border-outline-variant/30 px-2 py-0.5
+                             text-[0.62rem] tracking-widest text-on-surface/60
+                             font-medium tabular-nums select-none min-w-[72px] text-center">
+                    0 / 500
+                </span>
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-6 pt-6 border-t border-outline-variant/10">
+
+            <!-- Gender -->
+            <div class="flex flex-col gap-2">
+                <label class="text-[0.65rem] uppercase tracking-widest text-on-surface/40">Voice Type</label>
+                <select id="gender"
+                    class="bg-transparent border border-outline-variant/40 px-4 py-3 
+                           text-sm text-on-surface/80 focus:border-primary outline-none transition">
+                    <option value="male">Male Voice</option>
+                    <option value="female">Female Voice</option>
+                </select>
+            </div>
+
+            <!-- Country -->
+            <div class="flex flex-col gap-2">
+                <label class="text-[0.65rem] uppercase tracking-widest text-on-surface/40">Country</label>
+                <select id="country"
+                    class="bg-transparent border border-outline-variant/40 px-4 py-3 
+                           text-sm text-on-surface/80 focus:border-primary outline-none transition">
+                    <option value="all">All Countries</option>
+                    <option value="india">India</option>
+                    <option value="united states">United States</option>
+                    <option value="united kingdom">United Kingdom</option>
+                    <option value="australia">Australia</option>
+                    <option value="canada">Canada</option>
+                    <option value="ireland">Ireland</option>
+                    <option value="new zealand">New Zealand</option>
+                    <option value="singapore">Singapore</option>
+                    <option value="south africa">South Africa</option>
+                    <option value="nigeria">Nigeria</option>
+                    <option value="kenya">Kenya</option>
+                    <option value="philippines">Philippines</option>
+                    <option value="hong kong">Hong Kong</option>
+                </select>
+            </div>
+
+            <!-- Voice Selector Panel -->
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between">
+                    <label class="text-[0.65rem] uppercase tracking-widest text-on-surface/40">Voice</label>
+                    <span id="selectedVoiceLabel" class="text-[0.6rem] tracking-wide text-primary truncate max-w-[60%] text-right">None selected</span>
+                </div>
+                <!-- Hidden real value used by generate -->
+                <input type="hidden" id="voice" value="">
+                <!-- Card list -->
+                <div id="voiceList"
+                    class="flex flex-col gap-0 border border-outline-variant/40 max-h-[220px] overflow-y-auto">
+                    <div class="px-4 py-3 text-sm text-on-surface/40 italic">Loading voices...</div>
+                </div>
+            </div>
+        
+            <!-- Speed -->
+<div class="flex flex-col gap-2">
+        <label class="text-[0.65rem] uppercase tracking-widest text-on-surface/40">
+            Speed — <span id="speedLabel">0%</span>
+        </label>
+        <div class="flex gap-2 items-center">
+            <input type="range" id="speed" min="-50" max="50" value="0"
+                class="w-full accent-primary cursor-pointer">
+                <input type="number" id="speedInput" min="-50" max="50" value="0"
+                class="w-16 bg-transparent border border-outline-variant/40 
+                       text-on-surface/80 text-sm px-2 py-1 
+                       outline-none focus:border-primary transition">
+        </div>
+    </div>
+    
+    <!-- Pitch -->
+    <div class="flex flex-col gap-2">
+        <label class="text-[0.65rem] uppercase tracking-widest text-on-surface/40">
+            Pitch — <span id="pitchLabel">0Hz</span>
+        </label>
+        <div class="flex gap-2 items-center">
+            <input type="range" id="pitch" min="-50" max="50" value="0"
+                class="w-full accent-primary cursor-pointer">
+                <input type="number" id="pitchInput" min="-50" max="50" value="0"
+                class="w-16 bg-transparent border border-outline-variant/40 
+                       text-on-surface/80 text-sm px-2 py-1 
+                       outline-none focus:border-primary transition">
+        </div>
+    </div>
+    
+    <!-- Volume -->
+    <div class="flex flex-col gap-2">
+        <label class="text-[0.65rem] uppercase tracking-widest text-on-surface/40">
+            Volume — <span id="volumeLabel">0%</span>
+        </label>
+        <div class="flex gap-2 items-center">
+            <input type="range" id="volume" min="-50" max="50" value="0"
+                class="w-full accent-primary cursor-pointer">
+                <input type="number" id="volumeInput" min="-50" max="50" value="0"
+                class="w-16 bg-transparent border border-outline-variant/40 
+                       text-on-surface/80 text-sm px-2 py-1 
+                       outline-none focus:border-primary transition">
+        </div>
+    </div>
+        
+            <!-- Generate Button -->
+            <button id="generateBtn"
+                class="mt-4 px-10 py-4 bg-primary text-on-primary text-[0.7rem] 
+                       uppercase tracking-[0.3em] font-medium 
+                       hover:bg-primary/90 transition-all duration-500 
+                       shadow-xl shadow-primary/10 active:scale-95">
+                Generate Voice
+            </button>
+        
+        </div>
 </div>
 </section>
-<script>
-    document.getElementById("generateBtn").addEventListener("click", async () => {
-    const text = document.querySelector("textarea").value;
+    <script>
+function bindControl(rangeId, inputId, labelId, suffix) {
+    const range = document.getElementById(rangeId);
+    const input = document.getElementById(inputId);
+    const label = document.getElementById(labelId);
 
-    if (!text) {
-        alert("Please enter text");
-        return;
+    function update(value) {
+        range.value = value;
+        input.value = value;
+        label.textContent = value + suffix;
     }
 
-    try {
-        const res = await fetch("http://127.0.0.1:5000/generate", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ text })
-        });
+    range.addEventListener("input", () => {
+        update(range.value);
+    });
 
-        const blob = await res.blob();
-        const audioUrl = URL.createObjectURL(blob);
+    input.addEventListener("input", () => {
+        let val = parseInt(input.value) || 0;
 
-        // Play audio
-        const audio = new Audio(audioUrl);
-        audio.play();
+        // clamp value
+        val = Math.max(range.min, Math.min(range.max, val));
 
-    } catch (err) {
-        console.error(err);
-        alert("Error generating voice");
-    }
-});
+        update(val);
+    });
 
+    update(range.value);
+}
+
+// Bind all
+bindControl("speed", "speedInput", "speedLabel", "%");
+bindControl("pitch", "pitchInput", "pitchLabel", "Hz");
+bindControl("volume", "volumeInput", "volumeLabel", "%");
 </script>
 <!-- Right Panel: Audio & Monitoring -->
 <section class="p-12 lg:p-20 bg-surface-container-low/30 flex flex-col justify-center gap-16">
 <!-- Visualizer Mockup -->
 <div class="relative w-full aspect-video bg-white/50 border-[0.5px] border-outline-variant/20 flex items-center justify-center group overflow-hidden">
-<img class="absolute inset-0 w-full h-full object-cover opacity-10 group-hover:scale-105 transition-transform duration-[2000ms]" data-alt="abstract architectural close up of textured concrete and gold leaf material with dramatic sunlight shadows and high contrast" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQEMBA-vR4y_yjClc1hyGmK0fxaX00iGcI-mlKe2ZVeRLe2vHDCeR1tge7sEhLkznkApoE2xbWS3hgJm0fQT5ySBUMedLeXNcsiqWtoP1zH-Chr5efl7h_jcTan_nUrWlydiRzKPfPx91YkSGWlKv0tFqoIMTcHnrtxAzAwx8QcxJkxNhadJGls2NiOd8uZmcqDz3amgcTXKPU2MK0asT8vJY-oH9uIKeBf0LYd1z5JSpK9Bl5G4jZfcbjVWgHxC1QjwnPLdU9DwE"/>
-<!-- Waveform Visualization -->
-<div class="flex items-end gap-[2px] h-32 relative z-10">
-<div class="w-[2px] h-12 bg-primary/20 animate-pulse"></div>
-<div class="w-[2px] h-24 bg-primary/40"></div>
-<div class="w-[2px] h-20 bg-primary/30"></div>
-<div class="w-[2px] h-28 bg-primary/60"></div>
-<div class="w-[2px] h-32 bg-primary"></div>
-<div class="w-[2px] h-16 bg-primary/40"></div>
-<div class="w-[2px] h-22 bg-primary/30"></div>
-<div class="w-[2px] h-14 bg-primary/20"></div>
-<div class="w-[2px] h-26 bg-primary/40"></div>
-<div class="w-[2px] h-24 bg-primary/30"></div>
-<div class="w-[2px] h-32 bg-primary/60"></div>
-<div class="w-[2px] h-18 bg-primary"></div>
-<div class="w-[2px] h-12 bg-primary/40"></div>
-<div class="w-[2px] h-20 bg-primary/30"></div>
-<div class="w-[2px] h-16 bg-primary/20"></div>
-<div class="w-[2px] h-22 bg-primary/40"></div>
-<div class="w-[2px] h-28 bg-primary/30"></div>
-</div>
+<img class="absolute inset-0 w-full h-full object-cover opacity-10 group-hover:scale-105 transition-transform duration-[2000ms]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQEMBA-vR4y_yjClc1hyGmK0fxaX00iGcI-mlKe2ZVeRLe2vHDCeR1tge7sEhLkznkApoE2xbWS3hgJm0fQT5ySBUMedLeXNcsiqWtoP1zH-Chr5efl7h_jcTan_nUrWlydiRzKPfPx91YkSGWlKv0tFqoIMTcHnrtxAzAwx8QcxJkxNhadJGls2NiOd8uZmcqDz3amgcTXKPU2MK0asT8vJY-oH9uIKeBf0LYd1z5JSpK9Bl5G4jZfcbjVWgHxC1QjwnPLdU9DwE"/>
+<!-- Waveform Visualization — canvas replaces static bars -->
+<div class="viz-glow viz-breathe" id="vizGlow"></div>
+<canvas id="waveformCanvas" aria-hidden="true"></canvas>
 </div>
 <!-- Audio Player -->
 <div class="flex flex-col gap-10">
 <div class="flex flex-col gap-2">
 <div class="flex justify-between items-end">
-<h3 class="font-noto-serif text-2xl font-light text-primary">Dimension 01</h3>
-<span class="text-[0.65rem] tracking-[0.2em] text-stone-400">STEREO / 48KHZ</span>
+<h3 class="font-noto-serif text-2xl font-light text-primary" id="dimensionTitle">Dimension 01</h3>
+<span class="text-[0.65rem] tracking-[0.2em] text-stone-400" id="audioMeta">STEREO / 48KHZ</span>
 </div>
-<div class="w-full h-[2px] bg-outline-variant/20 relative mt-4">
-<div class="absolute top-0 left-0 w-1/3 h-full bg-primary shadow-[0_0_10px_rgba(115,92,0,0.3)]"></div>
-<div class="absolute top-1/2 left-1/3 -translate-y-1/2 w-2 h-2 bg-primary rounded-full ring-4 ring-primary/10"></div>
+<!-- Progress bar -->
+<div class="w-full h-[2px] bg-outline-variant/20 relative mt-4 cursor-pointer" id="progressBar">
+<div class="absolute top-0 left-0 h-full bg-primary shadow-[0_0_10px_rgba(115,92,0,0.3)] transition-all" id="progressFill" style="width:0%"></div>
+<div class="absolute top-1/2 -translate-y-1/2 w-2 h-2 bg-primary rounded-full ring-4 ring-primary/10 transition-all" id="progressThumb" style="left:0%"></div>
 </div>
 <div class="flex justify-between text-[0.6rem] uppercase tracking-tighter text-stone-400 font-medium">
-<span>01:42</span>
-<span>04:55</span>
+<span id="currentTime">0:00</span>
+<span id="totalTime">0:00</span>
 </div>
+<!-- Hidden audio element — single source of truth -->
+<audio id="audioPlayer" class="hidden"></audio>
+<!-- Separate preview player — never touches main player -->
+<audio id="previewPlayer" class="hidden"></audio>
 </div>
 <!-- Controls -->
 <div class="flex items-center justify-center gap-12">
-<button class="text-stone-400 hover:text-primary transition-colors duration-500">
-        <span class="material-symbols-outlined text-3xl">replay_5</span>
+<button id="rewindBtn" class="text-stone-400 hover:text-primary transition-colors duration-500">
+    <span class="material-symbols-outlined text-3xl">replay_5</span>
 </button>
-<button class="w-20 h-20 bg-white border-[0.5px] border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-700 shadow-xl shadow-black/5">
-<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+<button id="playBtn"
+    class="w-20 h-20 bg-white border-[0.5px] border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-700 shadow-xl shadow-black/5">
+    <span class="material-symbols-outlined text-4xl" id="playIcon" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
 </button>
-<button class="text-stone-400 hover:text-primary transition-colors duration-500">
-<span class="material-symbols-outlined text-3xl">forward_5</span>
+<button id="forwardBtn" class="text-stone-400 hover:text-primary transition-colors duration-500">
+    <span class="material-symbols-outlined text-3xl">forward_5</span>
 </button>
 </div>
+
+<!-- Download Button -->
+<div class="flex justify-center">
+    <button id="downloadBtn" disabled
+        class="px-8 py-3 border border-primary/30 text-primary text-[0.7rem] uppercase tracking-[0.25em]
+               font-medium hover:bg-primary hover:text-on-primary transition-all duration-500
+               disabled:opacity-30 disabled:cursor-not-allowed flex items-center gap-2">
+        <span class="material-symbols-outlined text-base" style="font-size:16px;">download</span>
+        Download Audio
+    </button>
+</div>
+
 <!-- Fine Tuning -->
+<!--
 <div class="grid grid-cols-2 gap-8 pt-8 border-t border-outline-variant/10">
 <div class="flex flex-col gap-4">
 <label class="text-[0.6rem] uppercase tracking-[0.2em] text-stone-400 font-semibold">Resonance</label>
@@ -214,13 +373,763 @@
 <div class="absolute top-0 left-0 w-[45%] h-full bg-primary/40"></div>
 </div>
 </div>
+-->
 </div>
 </div>
 </section>
 </div>
 </main>
 </div>
-<!-- Footer -->
-{% include 'components/footer.html' %}
+
+
+<script>
+/* =============================================
+   STUDIO.JS — single, clean, no duplicates
+   ============================================= */
+
+// ── Element refs ──────────────────────────────
+const audioPlayer   = document.getElementById("audioPlayer");
+const previewPlayer = document.getElementById("previewPlayer");
+const playBtn       = document.getElementById("playBtn");
+const playIcon      = document.getElementById("playIcon");
+const progressFill  = document.getElementById("progressFill");
+const progressThumb = document.getElementById("progressThumb");
+const progressBar   = document.getElementById("progressBar");
+const currentTimeEl = document.getElementById("currentTime");
+const totalTimeEl   = document.getElementById("totalTime");
+const downloadBtn   = document.getElementById("downloadBtn");
+const generateBtn   = document.getElementById("generateBtn");
+const genderSel     = document.getElementById("gender");
+const countrySel    = document.getElementById("country");
+const voiceInput    = document.getElementById("voice");        // hidden input
+const voiceList     = document.getElementById("voiceList");    // card container
+const selectedLabel = document.getElementById("selectedVoiceLabel");
+const speedRange    = document.getElementById("speed");
+const pitchRange    = document.getElementById("pitch");
+const volumeRange   = document.getElementById("volume");
+
+// State
+let currentAudioUrl  = null;   // main player blob URL
+let selectedVoiceName = "";    // currently chosen voice ShortName
+let previewingVoice   = "";    // voice currently being previewed
+
+// ── Helpers ───────────────────────────────────
+function formatTime(sec) {
+    if (isNaN(sec)) return "0:00";
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60).toString().padStart(2, "0");
+    return `${m}:${s}`;
+}
+const buildRate   = v => `${v >= 0 ? "+" : ""}${v}%`;
+const buildPitch  = v => `${v >= 0 ? "+" : ""}${v}Hz`;
+const buildVolume = v => `${v >= 0 ? "+" : ""}${v}%`;
+
+// ── Slider live labels ────────────────────────
+speedRange.addEventListener("input",  () => { document.getElementById("speedLabel").textContent  = buildRate(speedRange.value);   });
+pitchRange.addEventListener("input",  () => { document.getElementById("pitchLabel").textContent  = buildPitch(pitchRange.value);  });
+volumeRange.addEventListener("input", () => { document.getElementById("volumeLabel").textContent = buildVolume(volumeRange.value); });
+
+// ── Fetch helper: reads response, throws readable error ───────────────────────
+async function safeAudioFetch(url, options = {}) {
+    const res = await fetch(url, options);
+    const ct  = res.headers.get("Content-Type") || "";
+
+    if (!res.ok || !ct.includes("audio")) {
+        let msg = `Server ${res.status}`;
+        if (ct.includes("application/json")) {
+            try { const d = await res.json(); msg = d.error || msg; } catch(_) {}
+        } else {
+            const html = await res.text();
+            console.error("Server error response:", html);
+            msg = `Server error ${res.status} — see console for details`;
+        }
+        throw new Error(msg);
+    }
+    return res;
+}
+
+// ── Build voice card list ─────────────────────
+function buildVoiceCards(voices) {
+    voiceList.innerHTML = "";
+
+    if (!voices.length) {
+        voiceList.innerHTML = '<div class="px-4 py-3 text-sm text-on-surface/40 italic">No voices found for this selection.</div>';
+        return;
+    }
+
+    voices.forEach((v, idx) => {
+        const card = document.createElement("div");
+        card.className  = "voice-card flex items-center justify-between px-4 py-3 border-b border-outline-variant/10 last:border-b-0";
+        card.dataset.name  = v.name;
+        card.dataset.label = v.label;
+
+        card.innerHTML = `
+            <div class="flex flex-col gap-0.5 min-w-0 pr-3">
+                <span class="text-xs font-medium text-on-surface/80 truncate">${v.label.split("(")[0].trim()}</span>
+                <span class="text-[0.6rem] text-on-surface/40 tracking-wide">${v.locale}</span>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+                <button class="preview-btn w-7 h-7 flex items-center justify-center border border-outline-variant/30
+                               text-primary hover:bg-primary hover:text-white transition-all duration-300"
+                        data-voice="${v.name}" title="Preview voice" aria-label="Preview">
+                    <span class="material-symbols-outlined preview-icon" style="font-size:14px;font-variation-settings:'FILL' 1;">play_arrow</span>
+                </button>
+                <button class="select-btn text-[0.6rem] uppercase tracking-widest px-3 py-1
+                               border border-outline-variant/30 text-on-surface/60
+                               hover:border-primary hover:text-primary transition-all duration-300"
+                        data-voice="${v.name}" data-label="${v.label}">
+                    Select
+                </button>
+            </div>
+        `;
+
+        voiceList.appendChild(card);
+
+        // Mark first card as selected by default on first load
+        if (idx === 0 && !selectedVoiceName) {
+            selectVoice(v.name, v.label, card);
+        }
+    });
+
+    // Restore previously selected voice if it still exists in new list
+    if (selectedVoiceName) {
+        const match = voiceList.querySelector(`.voice-card[data-name="${selectedVoiceName}"]`);
+        if (match) {
+            match.classList.add("selected");
+        } else {
+            // Previous selection no longer in filtered list — auto-select first
+            const first = voiceList.querySelector(".voice-card");
+            if (first) selectVoice(first.dataset.name, first.dataset.label, first);
+        }
+    }
+}
+
+// ── Select a voice ────────────────────────────
+function selectVoice(name, label, cardEl) {
+    selectedVoiceName    = name;
+    voiceInput.value     = name;
+    const shortLabel     = label.split("(")[0].trim();
+    selectedLabel.textContent = shortLabel;
+
+    // Update card highlight
+    voiceList.querySelectorAll(".voice-card").forEach(c => c.classList.remove("selected"));
+    if (cardEl) cardEl.classList.add("selected");
+}
+
+// ── Voice card event delegation ───────────────
+voiceList.addEventListener("click", async (e) => {
+    // ── Preview button ──
+    const previewBtn = e.target.closest(".preview-btn");
+    if (previewBtn) {
+        const voiceName = previewBtn.dataset.voice;
+        const iconEl    = previewBtn.querySelector(".preview-icon");
+
+        // Stop any existing preview
+        if (!previewPlayer.paused) {
+            previewPlayer.pause();
+            previewPlayer.src = "";
+        }
+        // Restore any spinning icon
+        voiceList.querySelectorAll(".preview-icon").forEach(ic => {
+            ic.textContent = "play_arrow";
+            ic.classList.remove("preview-spin");
+        });
+
+        if (previewingVoice === voiceName) {
+            // Clicking the same voice again → just stop
+            previewingVoice = "";
+            return;
+        }
+
+        previewingVoice    = voiceName;
+        iconEl.textContent = "autorenew";
+        iconEl.classList.add("preview-spin");
+        previewBtn.disabled = true;
+
+        try {
+            const res  = await safeAudioFetch(`/preview?voice=${encodeURIComponent(voiceName)}`);
+            const blob = await res.blob();
+            const url  = URL.createObjectURL(blob);
+
+            previewPlayer.src = url;
+
+            // IMPORTANT: connect BEFORE play
+            VIZ.ensureConnected(previewPlayer);
+
+            await previewPlayer.play();
+            VIZ.start();
+
+            previewPlayer.onended = () => {
+                URL.revokeObjectURL(url);
+                previewPlayer.src  = "";
+                previewingVoice    = "";
+
+                VIZ.stop(); // 🔥 IMPORTANT
+
+                iconEl.textContent = "play_arrow";
+                iconEl.classList.remove("preview-spin");
+            };
+        } catch (err) {
+            console.error("Preview error:", err);
+            alert("Preview failed: " + err.message);
+            previewingVoice    = "";
+            iconEl.textContent = "play_arrow";
+            iconEl.classList.remove("preview-spin");
+        } finally {
+            previewBtn.disabled = false;
+            if (previewingVoice === voiceName) {
+                iconEl.textContent = "stop";
+                iconEl.classList.remove("preview-spin");
+            }
+        }
+        return;
+    }
+
+    // ── Select button ──
+    const selectBtn = e.target.closest(".select-btn");
+    if (selectBtn) {
+        const card = selectBtn.closest(".voice-card");
+        selectVoice(selectBtn.dataset.voice, selectBtn.dataset.label, card);
+        return;
+    }
+});
+
+// ── Load voices (gender + country) ───────────
+async function loadVoices() {
+    const gender  = genderSel.value;
+    const country = countrySel.value;
+
+    voiceList.innerHTML = '<div class="px-4 py-3 text-sm text-on-surface/40 italic">Loading voices...</div>';
+
+    try {
+        const res    = await fetch(`/voices?gender=${encodeURIComponent(gender)}&country=${encodeURIComponent(country)}`);
+        const voices = await res.json();
+        buildVoiceCards(voices);
+    } catch (err) {
+        console.error("Voice load error:", err);
+        voiceList.innerHTML = '<div class="px-4 py-3 text-sm text-error italic">Error loading voices.</div>';
+    }
+}
+
+genderSel.addEventListener("change",  loadVoices);
+countrySel.addEventListener("change", loadVoices);
+loadVoices();
+
+// ── Generate Audio ────────────────────────────
+generateBtn.addEventListener("click", async () => {
+    const text = document.getElementById("textInput").value.trim();
+
+    if (!text) {
+        alert("Please enter some text first.");
+        return;
+    }
+    if (!voiceInput.value) {
+        alert("Please select a voice first.");
+        return;
+    }
+
+    // Stop any preview that is playing
+    if (!previewPlayer.paused) {
+        previewPlayer.pause();
+        previewPlayer.src = "";
+        VIZ.stop(); // 🔥 add this
+        previewingVoice   = "";
+    }
+
+    const voice  = voiceInput.value;
+    const rate   = buildRate(speedRange.value);
+    const pitch  = buildPitch(pitchRange.value);
+    const volume = buildVolume(volumeRange.value);
+
+    generateBtn.textContent = "Generating...";
+    generateBtn.disabled    = true;
+
+    try {
+        const res = await safeAudioFetch("/generate", {
+            method:  "POST",
+            headers: { "Content-Type": "application/json" },
+            body:    JSON.stringify({ text, voice, rate, pitch, volume })
+        });
+
+        const blob = await res.blob();
+        if (blob.size === 0) throw new Error("Received empty audio file");
+
+        if (currentAudioUrl) URL.revokeObjectURL(currentAudioUrl);
+        currentAudioUrl  = URL.createObjectURL(blob);
+
+        audioPlayer.src = currentAudioUrl;
+        audioPlayer.load();
+        downloadBtn.disabled = false;
+
+        audioPlayer.addEventListener("canplay", () => audioPlayer.play(), { once: true });
+
+    } catch (err) {
+        console.error("Generate error:", err);
+        alert("Error generating voice: " + err.message);
+    } finally {
+        generateBtn.textContent = "Generate Voice";
+        generateBtn.disabled    = false;
+    }
+});
+
+// ── Main Player: Play/Pause ───────────────────
+playBtn.addEventListener("click", () => {
+    if (!audioPlayer.src) return;
+    audioPlayer.paused ? audioPlayer.play() : audioPlayer.pause();
+});
+audioPlayer.addEventListener("play",  () => { playIcon.textContent = "pause"; });
+audioPlayer.addEventListener("pause", () => { playIcon.textContent = "play_arrow"; });
+audioPlayer.addEventListener("ended", () => {
+    playIcon.textContent      = "play_arrow";
+    progressFill.style.width  = "0%";
+    progressThumb.style.left  = "0%";
+    currentTimeEl.textContent = "0:00";
+});
+
+// ── Progress bar ──────────────────────────────
+audioPlayer.addEventListener("timeupdate", () => {
+    if (!audioPlayer.duration) return;
+    const pct = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+    progressFill.style.width  = `${pct}%`;
+    progressThumb.style.left  = `${pct}%`;
+    currentTimeEl.textContent = formatTime(audioPlayer.currentTime);
+});
+audioPlayer.addEventListener("loadedmetadata", () => {
+    totalTimeEl.textContent = formatTime(audioPlayer.duration);
+});
+progressBar.addEventListener("click", (e) => {
+    if (!audioPlayer.duration) return;
+    const rect = progressBar.getBoundingClientRect();
+    audioPlayer.currentTime = ((e.clientX - rect.left) / rect.width) * audioPlayer.duration;
+});
+
+// ── Rewind / Forward ──────────────────────────
+document.getElementById("rewindBtn").addEventListener("click",  () => {
+    audioPlayer.currentTime = Math.max(0, audioPlayer.currentTime - 5);
+});
+document.getElementById("forwardBtn").addEventListener("click", () => {
+    audioPlayer.currentTime = Math.min(audioPlayer.duration || 0, audioPlayer.currentTime + 5);
+});
+
+// ── Download (manual only) ───────────────────
+downloadBtn.addEventListener("click", () => {
+    if (!currentAudioUrl) return;
+    const a    = document.createElement("a");
+    a.href     = currentAudioUrl;
+    a.download = `vox-dimension-${Date.now()}.mp3`;
+    a.click();
+});
+
+
+// ═══════════════════════════════════════════════════════════════════
+//  AUDIO VISUALIZER — Web Audio API + Canvas, premium animation
+// ═══════════════════════════════════════════════════════════════════
+
+const VIZ = (() => {
+    // ── Canvas setup ──────────────────────────────────────────────
+    const canvas  = document.getElementById("waveformCanvas");
+    const ctx2d   = canvas.getContext("2d");
+    const vizGlow = document.getElementById("vizGlow");
+
+    // ── Primary brand colour (matches Tailwind --primary #735c00) ─
+    const COLOR_PRIMARY    = "115,92,0";   // r,g,b — used in rgba()
+    const COLOR_PEAK       = "212,175,55"; // #d4af37 peak flash
+
+    // ── Web Audio graph (created once, reused) ────────────────────
+    let audioCtx   = null;
+    let analyser   = null;
+    let sourceNode = null;
+    let connected  = false;
+
+    // ── Animation state ───────────────────────────────────────────
+    let rafId      = null;          // requestAnimationFrame handle
+    let isPlaying  = false;
+
+    // Per-bar smoothed heights (lerp targets)
+    let smoothed   = [];            // current display heights  [0..1]
+    let peaks      = [];            // peak hold values          [0..1]
+    let peakTimers = [];            // frames until peak drops
+
+    // Config — recalculated on resize
+    let BAR_COUNT  = 48;
+    const BAR_GAP  = 2;            // px between bars
+    const MIN_H    = 0.45;         // minimum bar height (3% of canvas)
+    const LERP_UP  = 0.35;         // rise speed  (higher = snappier)
+    const LERP_DN  = 0.18;         // fall speed  (lower  = smoother tail)
+    const PEAK_HOLD= 18;           // frames peak marker stays
+    const PEAK_DROP= 0.012;        // peak fall speed per frame
+
+    // Idle breathing — sine wave parameters
+    let idleT = 600;
+
+    // ── DPR-aware canvas resize ───────────────────────────────────
+    function resizeCanvas() {
+        const dpr  = window.devicePixelRatio || 1;
+        const rect = canvas.parentElement.getBoundingClientRect();
+        canvas.width  = rect.width  * dpr;
+        canvas.height = rect.height * dpr;
+        ctx2d.scale(dpr, dpr);
+
+        // Recalculate bar count based on container width (responsive)
+        const logicalW = rect.width;
+        BAR_COUNT = Math.max(24, Math.min(72, Math.floor(logicalW / 9)));
+
+        // Resize smoothed arrays, preserving existing values
+        const prev = smoothed.length;
+        smoothed   = Array.from({ length: BAR_COUNT }, function(_, i) { return smoothed[i]   !== undefined ? smoothed[i]   : MIN_H; });
+        peaks      = Array.from({ length: BAR_COUNT }, function(_, i) { return peaks[i]      !== undefined ? peaks[i]      : 0; });
+        peakTimers = Array.from({ length: BAR_COUNT }, function(_, i) { return peakTimers[i] !== undefined ? peakTimers[i] : 0; });
+    }
+
+    // ── Connect an <audio> element to the Web Audio graph ──────────
+    // Each HTMLMediaElement may only have ONE MediaElementSource node.
+    // We track connected elements to prevent "already connected" errors.
+    var connectedElements = [];
+
+    function ensureConnected(mediaEl) {
+        // mediaEl defaults to audioPlayer for backward compat
+        if (!mediaEl) mediaEl = audioPlayer;
+
+        // First call ever: create the AudioContext + AnalyserNode
+        if (!audioCtx) {
+            try {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                analyser = audioCtx.createAnalyser();
+                analyser.fftSize               = 256;
+                analyser.smoothingTimeConstant = 0.75;
+                analyser.connect(audioCtx.destination); // analyser → speakers
+            } catch (e) {
+                console.warn("Web Audio API unavailable:", e);
+                return;
+            }
+        }
+
+        // Resume if suspended (browser autoplay policy)
+        if (audioCtx.state === "suspended") audioCtx.resume();
+
+        // Only connect each element once — MediaElementSource is a singleton
+        if (connectedElements.indexOf(mediaEl) !== -1) return;
+
+        try {
+            var src = audioCtx.createMediaElementSource(mediaEl);
+            src.connect(analyser); // tap into the analyser
+            connectedElements.push(mediaEl);
+            connected = true;
+        } catch (e) {
+            console.warn("Could not connect media element to Web Audio:", e);
+        }
+    }
+
+    // ── Map FFT bins → bar index with logarithmic distribution ────
+    // Low frequencies get more bars (perceptually accurate, like Spotify)
+    function getBinForBar(barIdx, totalBins) {
+        // Logarithmic mapping: bar 0 → low freq, bar N → ~6kHz (speech range)
+        const minHz = 80;
+        const maxHz = 6000;
+        const nyq   = audioCtx ? audioCtx.sampleRate / 2 : 24000;
+        const minBin = Math.floor(minHz / nyq * totalBins);
+        const maxBin = Math.floor(maxHz / nyq * totalBins);
+        const t = barIdx / (BAR_COUNT - 1);
+        // Logarithmic interpolation
+        return Math.floor(minBin * Math.pow(maxBin / minBin, t));
+    }
+
+    // ── Build per-bar amplitude from analyser data ─────────────────
+    function getBarAmplitudes(dataArray) {
+        const totalBins = analyser.frequencyBinCount; // fftSize/2
+        const amps = new Float32Array(BAR_COUNT);
+
+        for (let i = 0; i < BAR_COUNT; i++) {
+            const bin = getBinForBar(i, totalBins);
+
+            // Smooth sampling (3-bin average)
+            const lo = Math.max(0, bin - 1);
+            const hi = Math.min(totalBins - 1, bin + 1);
+
+            let sum = 0;
+            for (let b = lo; b <= hi; b++) {
+                sum += dataArray[b];
+            }
+
+            // Normalize (0 → 1)
+            let val = sum / ((hi - lo + 1) * 255);
+
+            // 🔥 Adaptive boost for low-volume signals (TTS fix)
+            if (val < 0.15) {
+                val *= 2.2; // aggressively boost quiet parts
+            }
+
+            // 🔥 Gamma curve (makes mid values more visible)
+            val = Math.pow(val, 0.65);
+
+            // 🔥 Soft gain (avoid harsh spikes)
+            val *= 1.5;
+
+            // 🔥 Clamp (safe upper bound)
+            amps[i] = Math.min(1, val);
+        }
+        return amps;
+    }
+
+    // ── Bell-curve weight: center bars taller, edges softer ───────
+    function bellWeight(i) {
+        const x = (i / (BAR_COUNT - 1)) * 2 - 1; // [-1, 1]
+        return 0.25 + 0.75 * Math.exp(-x * x * 3.5); ////////
+    }
+
+    // ── Idle breathing sine wave ──────────────────────────────────
+    function getIdleHeight(i) {
+        const phase  = (i / BAR_COUNT) * Math.PI * 2;
+        const wave   = Math.sin(idleT * 0.8 + phase);
+        const weight = bellWeight(i);
+        return MIN_H + weight * 0.12 * (0.5 + 0.5 * wave); ///////
+    }
+
+    // ── Draw a single frame ───────────────────────────────────────
+    function drawFrame() {
+        const W = canvas.width  / (window.devicePixelRatio || 1);
+        const H = canvas.height / (window.devicePixelRatio || 1);
+
+        // Clear
+        ctx2d.clearRect(0, 0, W, H);
+
+        const barW    = Math.max(1, (W - (BAR_COUNT - 1) * BAR_GAP) / BAR_COUNT);
+        const originY = H;          // bars grow upward from bottom
+
+        for (let i = 0; i < BAR_COUNT; i++) {
+            const h = Math.pow(smoothed[i], 1.6) * H * 1.5; ///////////
+            const x      = i * (barW + BAR_GAP);
+            const y      = originY - h;
+            const weight = bellWeight(i);
+            const alpha  = 0.5 + 0.5 * weight; // depth effect: center = fully opaque
+
+            // ── Bar gradient (gold bottom → lighter top) ──────────
+            const grad = ctx2d.createLinearGradient(0, originY, 0, y);
+            grad.addColorStop(0,   `rgba(${COLOR_PRIMARY},${alpha * 0.9})`);
+            grad.addColorStop(0.6, `rgba(${COLOR_PRIMARY},${alpha * 0.7})`);
+            grad.addColorStop(1,   `rgba(212,175,55,${alpha * 0.5})`);
+
+            ctx2d.fillStyle = grad;
+            ctx2d.fillRect(x, y, barW, h);
+
+            // ── Glow overlay (top ~20% of bar) ────────────────────
+            if (smoothed[i] > 0.12) {
+                const glowH = h * 0.22;
+                const glow  = ctx2d.createLinearGradient(0, y, 0, y + glowH);
+                glow.addColorStop(0,   `rgba(212,175,55,${0.4 * weight})`);
+                glow.addColorStop(1,   `rgba(212,175,55,0)`);
+                ctx2d.fillStyle = glow;
+                ctx2d.fillRect(x, y, barW, glowH);
+            }
+
+            // ── Peak marker ───────────────────────────────────────
+            if (peaks[i] > MIN_H + 0.01) {
+                const peakY = originY - peaks[i] * H;
+                ctx2d.fillStyle = `rgba(${COLOR_PEAK},${0.7 * weight})`;
+                ctx2d.fillRect(x, peakY - 1, barW, 2);
+            }
+        }
+
+        // ── Horizontal floor line ─────────────────────────────────
+        ctx2d.fillStyle = `rgba(${COLOR_PRIMARY},0.08)`;
+        ctx2d.fillRect(0, originY - 1, W, 1);
+    }
+
+    // ── Main animation loop ───────────────────────────────────────
+    function loop() {
+        rafId = requestAnimationFrame(loop);
+
+        if (( !audioPlayer.paused || !previewPlayer.paused ) && connected && analyser) {
+            // Live mode: read real frequency data
+            const dataArr = new Uint8Array(analyser.frequencyBinCount);
+            analyser.getByteFrequencyData(dataArr);
+            const amps = getBarAmplitudes(dataArr);
+
+            for (let i = 0; i < BAR_COUNT; i++) {
+                const weight = 0.6 + 0.4 * bellWeight(i); // less aggressive
+                const target = Math.max(MIN_H, amps[i] * weight * 1.4);
+                // LERP: rise fast, fall slow
+                const speed  = target > smoothed[i] ? LERP_UP : LERP_DN;
+                smoothed[i]  = smoothed[i] + (target - smoothed[i]) * speed;
+
+                // Peak hold logic
+                if (smoothed[i] >= peaks[i]) {
+                    peaks[i]      = smoothed[i];
+                    peakTimers[i] = PEAK_HOLD;
+                } else {
+                    if (peakTimers[i] > 0) {
+                        peakTimers[i]--;
+                    } else {
+                        peaks[i] = Math.max(smoothed[i], peaks[i] - PEAK_DROP);
+                    }
+                }
+            }
+
+            // Suppress glow pulse during playback
+            vizGlow.style.opacity = "0";
+
+        } else {
+            // Idle / paused mode: gentle breathing
+            idleT += 0.03;
+            for (let i = 0; i < BAR_COUNT; i++) {
+                const target = getIdleHeight(i);
+                smoothed[i]  = smoothed[i] + (target - smoothed[i]) * 0.06;
+                // Gently drain peaks in idle
+                peaks[i]     = Math.max(smoothed[i], peaks[i] - PEAK_DROP * 0.3);
+            }
+            vizGlow.style.opacity = "1";
+        }
+
+        drawFrame();
+    }
+
+    // ── Public API ────────────────────────────────────────────────
+    function start() {
+        // Resume AudioContext if suspended (browser autoplay policy)
+        if (audioCtx && audioCtx.state === "suspended") audioCtx.resume();
+        isPlaying = true;
+    }
+
+    function stop() {
+        isPlaying = false;
+    }
+
+    function init() {
+        resizeCanvas();
+
+        // Initialise arrays
+        smoothed   = new Array(BAR_COUNT).fill(MIN_H);
+        peaks      = new Array(BAR_COUNT).fill(0);
+        peakTimers = new Array(BAR_COUNT).fill(0);
+
+        // Start loop immediately (shows idle breathing)
+        if (!rafId) loop();
+
+        // Resize handler (debounced)
+        let rto;
+        window.addEventListener("resize", () => {
+            clearTimeout(rto);
+            rto = setTimeout(() => {
+                ctx2d.resetTransform();
+                resizeCanvas();
+            }, 120);
+        });
+    }
+
+    return { init, start, stop, ensureConnected };
+})();
+
+// ── Hook VIZ into BOTH audio elements ────────────────────────────────────────
+
+// Initialise on page load (starts idle breathing immediately)
+VIZ.init();
+
+// ── Main audioPlayer ─────────────────────────────────────────────────────────
+audioPlayer.addEventListener("play", function() {
+    VIZ.ensureConnected(audioPlayer);   // connect main player to analyser
+    VIZ.start();
+});
+audioPlayer.addEventListener("pause", function() { VIZ.stop(); });
+audioPlayer.addEventListener("ended", function() { VIZ.stop(); });
+
+// ── Preview player — also drives the waveform while previewing ────────────────
+previewPlayer.addEventListener("play", function() {
+    VIZ.ensureConnected(previewPlayer); // connect preview player to same analyser
+    VIZ.start();
+});
+previewPlayer.addEventListener("pause", function() { VIZ.stop(); });
+previewPlayer.addEventListener("ended", function() { VIZ.stop(); });
+
+// ── Word counter (500-word limit) ─────────────────────────────────────────────
+var WORD_LIMIT = 500;
+var wordBadge  = document.getElementById("wordCountBadge");
+var wordBar    = document.getElementById("wordProgressBar");
+var textInput  = document.getElementById("textInput");
+
+function countWords(str) {
+    var trimmed = str.trim();
+    if (!trimmed) return 0;
+    return trimmed.split(/\s+/).length;
+}
+
+function updateWordCount() {
+    var words = countWords(textInput.value);
+
+    // Enforce hard limit: trim to 500 words if exceeded
+    if (words > WORD_LIMIT) {
+        var parts = textInput.value.trim().split(/\s+/);
+        // Rebuild with exactly 500 words, preserving a trailing space if mid-word
+        textInput.value = parts.slice(0, WORD_LIMIT).join(" ");
+        words = WORD_LIMIT;
+    }
+
+    var pct = Math.min(100, (words / WORD_LIMIT) * 100);
+
+    // Badge text
+    wordBadge.textContent = words + " / " + WORD_LIMIT;
+
+    // Progress bar fill
+    wordBar.style.width = pct + "%";
+
+    // Colour shift: green-ish → amber → error red near limit
+    if (pct >= 95) {
+        wordBar.style.background = "#ba1a1a";           // error red
+        wordBadge.style.color    = "#ba1a1a";
+        wordBadge.style.borderColor = "rgba(186,26,26,0.4)";
+    } else if (pct >= 80) {
+        wordBar.style.background = "#d4af37";           // primary-container gold
+        wordBadge.style.color    = "#554300";
+        wordBadge.style.borderColor = "";
+    } else {
+        wordBar.style.background = "#735c00";           // brand primary
+        wordBadge.style.color    = "";
+        wordBadge.style.borderColor = "";
+    }
+}
+
+textInput.addEventListener("input", updateWordCount);
+updateWordCount(); // initialise on load
+
+// ── Dimension counter (increments each generation) ────────────────────────────
+var dimensionCount = 0;
+var dimensionEl    = document.getElementById("dimensionTitle");
+
+function incrementDimension() {
+    dimensionCount++;
+    // Zero-pad to 2 digits: 01, 02, ... 10, 11 ...
+    var padded = dimensionCount < 10 ? "0" + dimensionCount : "" + dimensionCount;
+    dimensionEl.textContent = "Dimension " + padded;
+}
+
+// ── Dynamic audio metadata ─────────────────────────────────────────────────────
+var audioMetaEl = document.getElementById("audioMeta");
+
+audioPlayer.addEventListener("loadedmetadata", function() {
+    // edge-tts outputs stereo MP3. AudioContext sampleRate gives the actual rate.
+    // We read it from the already-created audioCtx if available, else default 48k.
+    var sr = (typeof audioCtx !== "undefined" && audioCtx)
+             ? audioCtx.sampleRate
+             : 48000;
+    var khz = Math.round(sr / 1000);
+    audioMetaEl.textContent = "STEREO / " + khz + "KHZ";
+});
+
+// ── Patch generateBtn listener to also call incrementDimension ────────────────
+// We wrap the existing canplay handler that auto-plays after generation.
+// The cleanest hook point is right after audioPlayer.load() — we listen for
+// loadedmetadata on the player once per generate call.
+(function() {
+    var origGenerateClick = generateBtn.onclick; // unused — just a safety note
+
+    // Intercept audioPlayer loadedmetadata for dimension bump
+    // Use { once: true } each time so it only fires once per generation.
+    var _origLoad = audioPlayer.load.bind(audioPlayer);
+    audioPlayer.load = function() {
+        audioPlayer.addEventListener("loadedmetadata", incrementDimension, { once: true });
+        _origLoad();
+    };
+}());
+
+</script>
 </body>
 </html>

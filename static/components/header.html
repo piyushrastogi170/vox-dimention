@@ -91,6 +91,12 @@
                 href="/inquiry">
                 Inquiry
             </a>
+
+            <a class="nav-link font-noto-serif tracking-tight text-sm uppercase 
+                {% if page == 'pricing' %}active text-primary{% else %}text-stone-500{% endif %}" 
+                href="/pricing">
+                Pricing
+            </a>
         
             <!-- underline -->
             <span id="underline"></span>
@@ -145,46 +151,40 @@
 <div id="mobile-menu"
 class="hidden fixed top-20 left-1/2 -translate-x-1/2 w-[92%] bg-white/80 backdrop-blur-2xl border border-primary-container/20 rounded-2xl p-6 flex flex-col gap-5 z-[99] shadow-xl">
 
-    <a class="mobile-link" href="/">Home</a>
-    <a class="mobile-link" href="/studio">Studio</a>
-    <a class="mobile-link" href="/who-developed">Who Developed</a>
-    <a class="mobile-link" href="/inquiry">Inquiry</a>
+{% if user %}
+<!-- User Info -->
+<div class="flex items-center gap-3">
+    <img src="{{ user.picture }}" class="w-10 h-10 rounded-full">
+    <div>
+        <p class="text-sm font-medium">{{ user.name }}</p>
+        <p class="text-xs text-gray-500">{{ user.email }}</p>
+    </div>
+</div>
+{% endif %}
 
-    {% if user %}
-        <!-- User Info -->
-        <div class="flex items-center gap-3 mt-4">
-            <img src="{{ user.picture }}" class="w-10 h-10 rounded-full">
-            <div>
-                <p class="text-sm font-medium">{{ user.name }}</p>
-                <p class="text-xs text-gray-500">{{ user.email }}</p>
-            </div>
-        </div>
+<!-- Nav Links -->
+<a class="mobile-link" href="/">Home</a>
+<a class="mobile-link" href="/studio">Studio</a>
+<a class="mobile-link" href="/who-developed">Who Developed</a>
+<a class="mobile-link" href="/inquiry">Inquiry</a>
 
-        <!-- Logout -->
-        <a href="/logout">
-            <button class="mt-4 w-full bg-red-500 text-white py-3 text-xs uppercase tracking-[0.2em] font-medium rounded-lg">
-                Logout
-            </button>
-        </a>
+<!-- Auth Section -->
+{% if user %}
+<a href="/logout">
+    <button class="mt-4 w-full bg-red-500 text-white py-3 text-xs uppercase tracking-[0.2em] font-medium rounded-lg">
+        Logout
+    </button>
+</a>
+{% else %}
 
-    {% else %}
-        <!-- Login -->
-        <a href="/sign-in">
-            <button class="w-full bg-primary text-on-primary py-3 text-xs uppercase tracking-[0.2em] font-medium rounded-lg">
-                Login
-            </button>
-        </a>
-
-        <!-- Sign Up -->
-        <a href="/sign-up">
-            <button class="w-full bg-primary text-on-primary py-3 text-xs uppercase tracking-[0.2em] font-medium rounded-lg">
-                Get Started
-            </button>
-        </a>
-    {% endif %}
+<a href="/sign-up">
+    <button class="w-full bg-primary text-on-primary py-3 text-xs uppercase tracking-[0.2em] font-medium rounded-lg">
+        Get Started
+    </button>
+</a>
+{% endif %}
 
 </div>
-
 <script>
 document.addEventListener("DOMContentLoaded", () => {
         

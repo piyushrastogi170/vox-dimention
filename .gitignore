@@ -10,4 +10,4 @@ firebase_config.py
 vox-dimention-6c034ebcc7b4.json
 *.pyc
 .env
-*.json
+*.json.env.*

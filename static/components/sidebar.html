@@ -1,0 +1,48 @@
+<!-- Side Navigation Shell -->
+<aside class="fixed left-0 border border-black z-50 top-0 h-screen flex flex-col p-8 bg-white/70 dark:bg-stone-950/70 backdrop-blur-xl docked left-0 h-full w-64 border-r-0 bg-surface_container_low dark:bg-stone-900 z-50">
+    <div class="mb-12">
+    <h1 class="font-noto-serif italic font-light text-2xl text-[#735C00] dark:text-[#D4AF37]">Atelier AI</h1>
+    <p class="font-noto-serif tracking-tight text-on-surface dark:text-on-surface-variant text-xs mt-1 uppercase opacity-60">Premium Tier</p>
+    </div>
+    <nav class="flex flex-col space-y-6">
+    <a class="flex items-center space-x-4 text-stone-400 dark:text-stone-500 hover:text-[#735C00] transition-all duration-300 hover:bg-stone-50/50 dark:hover:bg-white/5 p-2" href="/studio">
+    <span class="material-symbols-outlined" data-icon="mic">mic</span>
+    <span class="font-noto-serif tracking-tight text-on-surface dark:text-on-surface-variant">Voice Studio</span>
+    </a>
+    <!-- Active State: History -->
+    <a class="flex items-center space-x-4 text-[#735C00] dark:text-[#D4AF37] font-semibold border-r-2 border-[#735C00] dark:border-[#D4AF37] transition-all duration-300 bg-stone-50/50 p-2 Active: scale-[0.99] transition-transform" href="/history">
+    <span class="material-symbols-outlined" data-icon="history">history</span>
+    <span class="font-noto-serif tracking-tight">History</span>
+    </a>
+    <a class="flex items-center space-x-4 text-stone-400 dark:text-stone-500 hover:text-[#735C00] transition-all duration-300 hover:bg-stone-50/50 dark:hover:bg-white/5 p-2" href="/project">
+    <span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+    <span class="font-noto-serif tracking-tight text-on-surface dark:text-on-surface-variant">Projects</span>
+    </a>
+    <a class="flex items-center space-x-4 text-stone-400 dark:text-stone-500 hover:text-[#735C00] transition-all duration-300 hover:bg-stone-50/50 dark:hover:bg-white/5 p-2" href="#">
+    <span class="material-symbols-outlined" data-icon="payments">payments</span>
+    <span class="font-noto-serif tracking-tight text-on-surface dark:text-on-surface-variant">Plans</span>
+    </a>
+    </nav>
+    <div class="mt-auto pt-8 flex items-center space-x-3">
+    <div class="w-10 h-10 bg-surface-container overflow-hidden">
+    <img alt="User profile" class="w-full h-full object-cover" data-alt="close-up portrait of a sophisticated man with a neutral expression in a high-fashion architectural studio setting" src="{{ user.picture }}"/>
+    </div>
+    <div class="flex items-center justify-between gap-4">
+
+            <!-- User Info -->
+            <div class="flex flex-col">
+                <span class="text-sm font-semibold text-on-surface">
+                    {{ user.name }}
+                </span>
+                <span class="text-xs text-on-surface-variant">
+                    {{ user.type }} Free
+                </span>
+            </div>
+        
+            <!-- Logout Icon -->
+            <button class="text-red-600 hover:text-red-700 transition">
+                <span class="material-symbols-outlined text-lg">logout</span>
+            </button>
+        
+        </div>
+    </aside>

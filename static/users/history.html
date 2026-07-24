@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>History - Atelier AI</title>
+<link rel="shortcut icon" href="vox dimention.svg" type="image/x-icon">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;0,600;0,700;1,300&amp;family=Manrope:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-primary": "#e9c349",
+              "outline": "#7f7663",
+              "surface": "#f9f9f9",
+              "surface-tint": "#735c00",
+              "secondary-fixed": "#e5e2e1",
+              "on-error-container": "#93000a",
+              "error-container": "#ffdad6",
+              "surface-variant": "#e2e2e2",
+              "tertiary-container": "#b2b3b3",
+              "on-secondary-fixed": "#1c1b1b",
+              "on-error": "#ffffff",
+              "secondary-fixed-dim": "#c8c6c5",
+              "on-surface-variant": "#4d4635",
+              "on-primary-container": "#554300",
+              "inverse-on-surface": "#f0f1f1",
+              "background": "#f9f9f9",
+              "inverse-surface": "#2f3131",
+              "surface-container-high": "#e8e8e8",
+              "secondary": "#5f5e5e",
+              "on-surface": "#1a1c1c",
+              "tertiary": "#5d5f5f",
+              "surface-container-low": "#f3f3f4",
+              "surface-bright": "#f9f9f9",
+              "primary": "#735c00",
+              "on-primary-fixed-variant": "#574500",
+              "error": "#ba1a1a",
+              "primary-fixed-dim": "#e9c349",
+              "outline-variant": "#d0c5af",
+              "surface-container-highest": "#e2e2e2",
+              "on-tertiary-fixed-variant": "#454747",
+              "tertiary-fixed": "#e2e2e2",
+              "surface-container": "#eeeeee",
+              "on-secondary-fixed-variant": "#474646",
+              "primary-fixed": "#ffe088",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-container": "#444546",
+              "secondary-container": "#e5e2e1",
+              "on-secondary": "#ffffff",
+              "on-tertiary": "#ffffff",
+              "tertiary-fixed-dim": "#c6c6c7",
+              "on-background": "#1a1c1c",
+              "on-tertiary-fixed": "#1a1c1c",
+              "on-primary-fixed": "#241a00",
+              "surface-dim": "#dadada",
+              "on-secondary-container": "#656464",
+              "primary-container": "#d4af37",
+              "on-primary": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Noto Serif"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #f9f9f9;
+        }
+        h1, h2, h3, .serif {
+            font-family: 'Noto Serif', serif;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+        {% include 'components/header.html' %}
+        {% include 'components/sidebar.html' %}
+
+<!-- Main Canvas -->
+<main class="ml-64 mt-20 min-h-screen p-12 lg:p-20">
+<!-- Header Section -->
+<header class="mb-20">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-8">
+<div class="max-w-2xl">
+<span class="text-primary font-body text-xs uppercase tracking-[0.3em] mb-4 block">Archive</span>
+<h2 class="text-display-lg text-6xl font-headline tracking-tighter text-on-surface leading-none mb-6">Voice History</h2>
+<p class="text-body-md text-secondary font-body leading-relaxed max-w-lg">
+                        A curated collection of your synthesized narratives. Each vocal print is architecturally balanced for clarity and emotive depth.
+                    </p>
+</div>
+<div class="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
+<!-- Search -->
+<div class="relative w-full sm:w-64 group">
+<span class="material-symbols-outlined absolute left-0 top-1/2 -translate-y-1/2 text-outline-variant text-sm" data-icon="search">search</span>
+<input class="w-full bg-transparent border-b border-outline-variant py-2 pl-6 focus:ring-0 focus:border-primary text-xs tracking-widest font-body outline-none transition-all placeholder:text-stone-300" placeholder="SEARCH ARCHIVE" type="text"/>
+</div>
+<!-- Filter -->
+<button class="flex items-center space-x-2 border-b border-outline-variant py-2 px-4 hover:border-primary transition-all group">
+<span class="text-xs tracking-widest font-body text-stone-500 group-hover:text-primary">SORT BY</span>
+<span class="material-symbols-outlined text-sm text-outline-variant group-hover:text-primary" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+</div>
+</header>
+<!-- History Grid -->
+<section class="grid grid-cols-1 gap-12 lg:gap-16">
+<!-- Audio Item 1 -->
+<div class="group relative grid grid-cols-1 md:grid-cols-12 items-center gap-8 py-10 border-b border-outline-variant/30 hover:bg-surface-container-low transition-colors duration-500">
+<div class="md:col-span-1 flex items-center justify-center">
+<button class="w-14 h-14 bg-primary text-on-primary flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+<span class="material-symbols-outlined" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+<div class="md:col-span-5">
+<h3 class="text-xl font-headline font-semibold text-on-surface mb-1">Architectural Manifesto - Chapter 1</h3>
+<p class="text-xs font-body text-secondary tracking-widest uppercase">Voice: British Elegant • 04:22</p>
+</div>
+<div class="md:col-span-2">
+<span class="text-xs font-body text-outline uppercase tracking-tighter">Oct 24, 2023</span>
+</div>
+<div class="md:col-span-4 flex items-center justify-end space-x-8">
+<button class="flex items-center space-x-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="download">download</span>
+<span class="text-[10px] tracking-widest uppercase font-semibold">Download</span>
+</button>
+<button class="text-stone-300 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+<!-- Audio Item 2 -->
+<div class="group relative grid grid-cols-1 md:grid-cols-12 items-center gap-8 py-10 border-b border-outline-variant/30 hover:bg-surface-container-low transition-colors duration-500">
+<div class="md:col-span-1 flex items-center justify-center">
+<button class="w-14 h-14 bg-surface-container text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="play_arrow">play_arrow</span>
+</button>
+</div>
+<div class="md:col-span-5">
+<h3 class="text-xl font-headline font-semibold text-on-surface mb-1">Morning Meditation Narrative</h3>
+<p class="text-xs font-body text-secondary tracking-widest uppercase">Voice: Soft Ambient • 12:05</p>
+</div>
+<div class="md:col-span-2">
+<span class="text-xs font-body text-outline uppercase tracking-tighter">Oct 22, 2023</span>
+</div>
+<div class="md:col-span-4 flex items-center justify-end space-x-8">
+<button class="flex items-center space-x-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="download">download</span>
+<span class="text-[10px] tracking-widest uppercase font-semibold">Download</span>
+</button>
+<button class="text-stone-300 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+<!-- Audio Item 3 -->
+<div class="group relative grid grid-cols-1 md:grid-cols-12 items-center gap-8 py-10 border-b border-outline-variant/30 hover:bg-surface-container-low transition-colors duration-500">
+<div class="md:col-span-1 flex items-center justify-center">
+<button class="w-14 h-14 bg-surface-container text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="play_arrow">play_arrow</span>
+</button>
+</div>
+<div class="md:col-span-5">
+<h3 class="text-xl font-headline font-semibold text-on-surface mb-1">Product Keynote Concept</h3>
+<p class="text-xs font-body text-secondary tracking-widest uppercase">Voice: Bold Professional • 02:45</p>
+</div>
+<div class="md:col-span-2">
+<span class="text-xs font-body text-outline uppercase tracking-tighter">Oct 19, 2023</span>
+</div>
+<div class="md:col-span-4 flex items-center justify-end space-x-8">
+<button class="flex items-center space-x-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="download">download</span>
+<span class="text-[10px] tracking-widest uppercase font-semibold">Download</span>
+</button>
+<button class="text-stone-300 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+<!-- Audio Item 4 -->
+<div class="group relative grid grid-cols-1 md:grid-cols-12 items-center gap-8 py-10 border-b border-outline-variant/30 hover:bg-surface-container-low transition-colors duration-500">
+<div class="md:col-span-1 flex items-center justify-center">
+<button class="w-14 h-14 bg-surface-container text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="play_arrow">play_arrow</span>
+</button>
+</div>
+<div class="md:col-span-5">
+<h3 class="text-xl font-headline font-semibold text-on-surface mb-1">The Golden Ratio Podcast Intro</h3>
+<p class="text-xs font-body text-secondary tracking-widest uppercase">Voice: Warm Storyteller • 00:58</p>
+</div>
+<div class="md:col-span-2">
+<span class="text-xs font-body text-outline uppercase tracking-tighter">Oct 15, 2023</span>
+</div>
+<div class="md:col-span-4 flex items-center justify-end space-x-8">
+<button class="flex items-center space-x-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="download">download</span>
+<span class="text-[10px] tracking-widest uppercase font-semibold">Download</span>
+</button>
+<button class="text-stone-300 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Pagination / Load More -->
+<footer class="mt-32 flex justify-center">
+<button class="relative px-12 py-5 bg-transparent border border-primary group overflow-hidden">
+<span class="relative z-10 text-primary font-body text-xs tracking-[0.3em] font-bold group-hover:text-on-primary transition-colors duration-500">LOAD PREVIOUS RECORDS</span>
+<div class="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22, 1, 0.36, 1)]"></div>
+</button>
+</footer>
+</main>
+<!-- Floating Decoration Element (Architectural Accent) -->
+<div class="fixed top-0 right-0 w-1/3 h-full pointer-events-none overflow-hidden opacity-20">
+<div class="absolute top-1/4 -right-20 w-px h-96 bg-primary"></div>
+<div class="absolute top-1/2 -right-40 w-px h-64 bg-primary rotate-45"></div>
+<div class="absolute top-[10%] right-20 font-headline italic text-9xl text-stone-200 select-none">Voice</div>
+</div>
+</body></html>

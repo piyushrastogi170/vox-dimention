@@ -55,3 +55,11 @@ def callback():
 
     return redirect('/studio')
     
+
+VOICE_MAP = {
+    "male": "en-IN-PrabhatNeural",
+    "female": "en-IN-NeerjaNeural"
+}
+
+OUTPUT_DIR = "voices"
+os.makedirs(OUTPUT_DIR, exist_ok=True)

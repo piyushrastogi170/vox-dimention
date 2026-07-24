@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link rel="shortcut icon" href="vox dimention.svg" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;0,600;0,700;1,300&amp;family=Manrope:wght@300;400;500;600;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-primary": "#e9c349",
+              "outline": "#7f7663",
+              "surface": "#f9f9f9",
+              "surface-tint": "#735c00",
+              "secondary-fixed": "#e5e2e1",
+              "on-error-container": "#93000a",
+              "error-container": "#ffdad6",
+              "surface-variant": "#e2e2e2",
+              "tertiary-container": "#b2b3b3",
+              "on-secondary-fixed": "#1c1b1b",
+              "on-error": "#ffffff",
+              "secondary-fixed-dim": "#c8c6c5",
+              "on-surface-variant": "#4d4635",
+              "on-primary-container": "#554300",
+              "inverse-on-surface": "#f0f1f1",
+              "background": "#f9f9f9",
+              "inverse-surface": "#2f3131",
+              "surface-container-high": "#e8e8e8",
+              "secondary": "#5f5e5e",
+              "on-surface": "#1a1c1c",
+              "tertiary": "#5d5f5f",
+              "surface-container-low": "#f3f3f4",
+              "surface-bright": "#f9f9f9",
+              "primary": "#735c00",
+              "on-primary-fixed-variant": "#574500",
+              "error": "#ba1a1a",
+              "primary-fixed-dim": "#e9c349",
+              "outline-variant": "#d0c5af",
+              "surface-container-highest": "#e2e2e2",
+              "on-tertiary-fixed-variant": "#454747",
+              "tertiary-fixed": "#e2e2e2",
+              "surface-container": "#eeeeee",
+              "on-secondary-fixed-variant": "#474646",
+              "primary-fixed": "#ffe088",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-container": "#444546",
+              "secondary-container": "#e5e2e1",
+              "on-secondary": "#ffffff",
+              "on-tertiary": "#ffffff",
+              "tertiary-fixed-dim": "#c6c6c7",
+              "on-background": "#1a1c1c",
+              "on-tertiary-fixed": "#1a1c1c",
+              "on-primary-fixed": "#241a00",
+              "surface-dim": "#dadada",
+              "on-secondary-container": "#656464",
+              "primary-container": "#d4af37",
+              "on-primary": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Noto Serif"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .reveal-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: reveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        @keyframes reveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(30px);
+        }
+        .text-reveal {
+            background: linear-gradient(to bottom, #1a1c1c 0%, #1a1c1c 50%, #735c00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+{% include 'components/header.html' %}
+<main class="mt-20 min-h-screen flex flex-col items-center justify-center p-8 md:p-24 relative overflow-hidden">
+<!-- Background Ambient Glow -->
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[1000px] rounded-full opacity-[0.03] blur-[120px] pointer-events-none" style="background: radial-gradient(circle, #735c00 0%, transparent 70%);"></div>
+<!-- Section Header -->
+<header class="max-w-4xl w-full mb-20 md:mb-32 reveal-scroll" style="animation-delay: 0.1s;">
+<div class="flex items-center gap-4 mb-8">
+<div class="h-[1px] w-12 bg-primary"></div>
+<span class="font-label text-primary uppercase tracking-[0.3em] text-[0.65rem] font-bold">Investment Tiers</span>
+</div>
+<h1 class="font-headline text-display-lg md:text-7xl font-light tracking-tighter leading-none mb-8">
+                The Cost of <span class="italic font-light">Perfection</span>
+</h1>
+<p class="font-body text-secondary max-w-xl text-lg leading-relaxed">
+                Choose the architectural foundation for your voice. From delicate drafts to the eternal archive.
+            </p>
+</header>
+<!-- Pricing Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-outline-variant/20 max-w-6xl w-full reveal-scroll" style="animation-delay: 0.3s;">
+<!-- Plan: FREE -->
+<div class="group bg-surface p-12 md:p-16 flex flex-col justify-between hover:bg-surface-container-low transition-colors duration-700">
+<div>
+<div class="flex justify-between items-start mb-16">
+<h2 class="font-headline text-4xl font-light tracking-tight">FREE</h2>
+<span class="font-label text-on-surface-variant/40 text-xs tracking-widest uppercase">The Entry</span>
+</div>
+<div class="mb-16">
+<div class="flex items-baseline gap-1 mb-2">
+<span class="font-headline text-5xl">₹0</span>
+<span class="font-body text-secondary text-sm">/mo</span>
+</div>
+<p class="text-on-surface-variant text-sm font-medium">For the casual architect.</p>
+</div>
+<ul class="space-y-6 mb-16">
+<li class="flex items-center gap-4 text-on-surface-variant">
+<span class="material-symbols-outlined text-outline-variant text-xl">mic</span>
+<span class="text-sm tracking-wide">Limited Generations</span>
+</li>
+<li class="flex items-center gap-4 text-on-surface-variant">
+<span class="material-symbols-outlined text-outline-variant text-xl">graphic_eq</span>
+<span class="text-sm tracking-wide">Basic audio engine</span>
+</li>
+<li class="flex items-center gap-4 text-on-surface-variant">
+<span class="material-symbols-outlined text-outline-variant text-xl">notes</span>
+<span class="text-sm tracking-wide">Limited word count</span>
+</li>
+</ul>
+</div>
+<button class="w-full py-6 border border-outline-variant text-on-surface font-label text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 hover:bg-on-surface hover:text-surface">
+                    Get Started
+                </button>
+</div>
+<!-- Plan: PREMIUM -->
+<div class="relative group bg-white p-12 md:p-16 flex flex-col justify-between overflow-hidden">
+<!-- Decorative Gold Accent -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 -mr-16 -mt-16 rotate-45 pointer-events-none"></div>
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-16">
+<h2 class="font-headline text-4xl font-light tracking-tight text-primary">PREMIUM</h2>
+<div class="bg-primary px-3 py-1">
+<span class="font-label text-on-primary text-[0.6rem] font-bold tracking-[0.2em] uppercase">Most Coveted</span>
+</div>
+</div>
+<div class="mb-16">
+<div class="flex items-baseline gap-1 mb-2">
+<span class="font-headline text-5xl text-on-surface">₹299</span>
+<span class="font-body text-secondary text-sm">/mo</span>
+</div>
+<p class="text-on-surface-variant text-sm font-medium">The complete atelier experience.</p>
+</div>
+<ul class="space-y-6 mb-16">
+<li class="flex items-center gap-4 text-on-surface">
+<span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'FILL' 1;">stars</span>
+<span class="text-sm tracking-wide font-semibold">Unlimited generation</span>
+</li>
+<li class="flex items-center gap-4 text-on-surface">
+<span class="material-symbols-outlined text-primary text-xl">high_quality</span>
+<span class="text-sm tracking-wide font-semibold">High fidelity audio (24-bit)</span>
+</li>
+<li class="flex items-center gap-4 text-on-surface">
+<span class="material-symbols-outlined text-primary text-xl">bolt</span>
+<span class="text-sm tracking-wide font-semibold">Faster processing priority</span>
+</li>
+<li class="flex items-center gap-4 text-on-surface">
+<span class="material-symbols-outlined text-primary text-xl">auto_stories</span>
+<span class="text-sm tracking-wide font-semibold">History + Cloud Vault</span>
+</li>
+</ul>
+</div>
+<button class="relative z-10 w-full py-6 bg-primary text-on-primary font-label text-xs font-bold uppercase tracking-[0.2em] transition-all duration-500 hover:bg-primary/90 hover:scale-[1.02] shadow-xl shadow-primary/10">
+                    Upgrade Now
+                </button>
+</div>
+</div>
+<section class="relative w-full overflow-hidden mt-20">
+
+        <!-- Decorative Background Image -->
+        <div class="absolute inset-0 z-0 opacity-[0.05] pointer-events-none grayscale">
+            <img 
+                class="w-full h-full object-cover"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgyypED-2grO8zxzmMi2hM50Mf4PsRRKEyz5Ujo6gnxqI3s2bKxLGW5OFiIVnedNhaojApLENaQWKTW3EzwP-gIKi7GZM0B7hDh8jVKUwb9_nALNSDgkrn-mzsG7pR-CC4bGXtjy-OLZUnAVfZiZ3MieqT0mp_FsvaEIH6mkPpf2tBWnuEMqFkBAfe8gLA2iN90eFA39B8br8NmCuN48yhMGhuX3eseY0bd3jGNlycGm4jmVDIFQjcrZ-0VPF5P9pCFR9jJ71B0kU"
+                alt="background"
+            />
+        </div>
+    
+        <!-- Content -->
+        <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+    
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 md:gap-12 text-center md:text-left">
+    
+                <!-- Item 1 -->
+                <div class="flex flex-col items-center md:items-start gap-4">
+                    <span class="material-symbols-outlined text-primary text-3xl">architecture</span>
+                    <h4 class="font-headline text-lg md:text-xl">Precision Built</h4>
+                    <p class="text-on-surface-variant text-sm leading-relaxed max-w-sm">
+                        Our AI models are trained on classical linguistic structures to ensure timeless clarity in every output.
+                    </p>
+                </div>
+    
+                <!-- Item 2 -->
+                <div class="flex flex-col items-center md:items-start gap-4">
+                    <span class="material-symbols-outlined text-primary text-3xl">verified_user</span>
+                    <h4 class="font-headline text-lg md:text-xl">Encrypted Vault</h4>
+                    <p class="text-on-surface-variant text-sm leading-relaxed max-w-sm">
+                        Your intellectual property remains yours. Premium members enjoy end-to-end encrypted storage.
+                    </p>
+                </div>
+    
+                <!-- Item 3 -->
+                <div class="flex flex-col items-center md:items-start gap-4">
+                    <span class="material-symbols-outlined text-primary text-3xl">support_agent</span>
+                    <h4 class="font-headline text-lg md:text-xl">Atelier Concierge</h4>
+                    <p class="text-on-surface-variant text-sm leading-relaxed max-w-sm">
+                        Direct access to our audio engineering team for bespoke integration needs and custom voice training.
+                    </p>
+                </div>
+    
+            </div>
+    
+        </div>
+    
+    </section>
+</main>
+<!-- Footer -->
+{% include 'components/footer.html' %}
+</body></html>
