@@ -16,3 +16,10 @@ vox-dimention-6c034ebcc7b4.json
 .envbackup
 *.env*backup*
 *.backup
+
+# Ignore database files
+*.sql
+*.sqlite
+*.sqlite3
+*.db
+*.db3
