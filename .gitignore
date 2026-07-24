@@ -11,3 +11,8 @@ vox-dimention-6c034ebcc7b4.json
 *.pyc
 .env
 *.json.env.*
+
+# Ignore all env backup files
+.envbackup
+*.env*backup*
+*.backup
